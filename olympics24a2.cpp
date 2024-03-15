@@ -2,7 +2,7 @@
 
 olympics_t::olympics_t()
 {
-	// TODO: Your code goes here
+
 }
 
 olympics_t::~olympics_t()

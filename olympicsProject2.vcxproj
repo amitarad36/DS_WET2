@@ -127,11 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Contestant.cpp" />
     <ClCompile Include="main24a2.cpp" />
     <ClCompile Include="olympics24a2.cpp" />
+    <ClCompile Include="Team.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="BinaryTreeNode.h" />
+    <ClInclude Include="Contestant.h" />
+    <ClInclude Include="HashObj.h" />
     <ClInclude Include="olympics24a2.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="Team.h" />
     <ClInclude Include="wet2util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

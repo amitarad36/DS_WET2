@@ -1,0 +1,510 @@
+﻿  Contestant.cpp
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,14): error C2039: 'ostream': is not a member of 'std'
+  (compiling source file 'Contestant.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\predefined C++ types (compiler internal)(348,11):
+  see declaration of 'std'
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,21): error C2143: syntax error: missing ';' before '&'
+  (compiling source file 'Contestant.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,14): error C2433: 'ostream': 'friend' not permitted on data declarations
+  (compiling source file 'Contestant.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,21): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Contestant.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,39): error C2039: 'ostream': is not a member of 'std'
+  (compiling source file 'Contestant.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\predefined C++ types (compiler internal)(348,11):
+  see declaration of 'std'
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,74): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'Contestant.cpp')
+  
+  main24a2.cpp
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,2): error C3646: 'T': unknown override specifier
+  (compiling source file 'main24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,2):
+  the template instantiation context (the oldest one first) is
+  	C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(24,2):
+  	see reference to class template instantiation 'HashObj<T>' being compiled
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,3): error C2143: syntax error: missing ';' before '*'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,13): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(14,32): error C2760: syntax error: ';' was unexpected here; expected ')'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(17,10): error C3861: 'data': identifier not found
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(17,10): error C2065: 'data': undeclared identifier
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'main24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20):
+  the template instantiation context (the oldest one first) is
+  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(381,2):
+  	see reference to class template instantiation 'BinaryTree<T>' being compiled
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): message : error recovery skipped: ') ->'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): message : error recovery skipped: ') ) ->'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): message : error recovery skipped: ')'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'main24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): message : error recovery skipped: 'else if (  . . . ;'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(121,3): message : parsing resumes here
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): message : error recovery skipped: ') ->'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): message : error recovery skipped: ')'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): message : error recovery skipped: ') ->'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): message : error recovery skipped: ')'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'main24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): message : error recovery skipped: 'else return identifier  . . . ;'
+  (compiling source file 'main24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(247,2): message : parsing resumes here
+  (compiling source file 'main24a2.cpp')
+  
+  olympics24a2.cpp
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,2): error C3646: 'T': unknown override specifier
+  (compiling source file 'olympics24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,2):
+  the template instantiation context (the oldest one first) is
+  	C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(24,2):
+  	see reference to class template instantiation 'HashObj<T>' being compiled
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,3): error C2143: syntax error: missing ';' before '*'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(10,13): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(14,32): error C2760: syntax error: ';' was unexpected here; expected ')'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(17,10): error C3861: 'data': identifier not found
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(17,10): error C2065: 'data': undeclared identifier
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'olympics24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20):
+  the template instantiation context (the oldest one first) is
+  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(381,2):
+  	see reference to class template instantiation 'BinaryTree<T>' being compiled
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): message : error recovery skipped: ') ->'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): message : error recovery skipped: ') ) ->'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): message : error recovery skipped: ')'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'olympics24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): message : error recovery skipped: 'else if (  . . . ;'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(121,3): message : parsing resumes here
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): message : error recovery skipped: ') ->'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): message : error recovery skipped: ')'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): message : error recovery skipped: ') ->'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): message : error recovery skipped: ')'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'olympics24a2.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): message : error recovery skipped: 'else return identifier  . . . ;'
+  (compiling source file 'olympics24a2.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(247,2): message : parsing resumes here
+  (compiling source file 'olympics24a2.cpp')
+  
+  Team.cpp
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,14): error C2039: 'ostream': is not a member of 'std'
+  (compiling source file 'Team.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\predefined C++ types (compiler internal)(348,11):
+  see declaration of 'std'
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,21): error C2143: syntax error: missing ';' before '&'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,14): error C2433: 'ostream': 'friend' not permitted on data declarations
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,21): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,39): error C2039: 'ostream': is not a member of 'std'
+  (compiling source file 'Team.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\predefined C++ types (compiler internal)(348,11):
+  see declaration of 'std'
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\Contestant.h(27,74): error C2238: unexpected token(s) preceding ';'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'Team.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20):
+  the template instantiation context (the oldest one first) is
+  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(381,2):
+  	see reference to class template instantiation 'BinaryTree<T>' being compiled
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,20): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,31): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,53): message : error recovery skipped: ') ->'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,79): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,90): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,107): message : error recovery skipped: ') ) ->'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(116,118): message : error recovery skipped: ')'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'Team.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(119,3): message : error recovery skipped: 'else if (  . . . ;'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(121,3): message : parsing resumes here
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,73): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,84): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,102): message : error recovery skipped: ') ->'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,118): message : error recovery skipped: ')'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2065: 'ID_Provider': undeclared identifier
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,25): error C2187: syntax error: 'ID_Provider' was unexpected here
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): error C3878: syntax error: unexpected token '*' following 'expression'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,36): message : error recovery skipped: '* > (  . . . ('
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C2760: syntax error: ')' was unexpected here; expected 'statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): error C3878: syntax error: unexpected token ')' following 'selection_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,54): message : error recovery skipped: ') ->'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C2760: syntax error: ')' was unexpected here; expected ';'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): error C3878: syntax error: unexpected token ')' following 'expression_statement'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(243,64): message : error recovery skipped: ')'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): error C3878: syntax error: unexpected token 'else' following 'statement_seq'
+  (compiling source file 'Team.cpp')
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3):
+  missing one of:  '}' ?
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(245,3): message : error recovery skipped: 'else return identifier  . . . ;'
+  (compiling source file 'Team.cpp')
+  
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(247,2): message : parsing resumes here
+  (compiling source file 'Team.cpp')
+  
+  Generating Code...

@@ -15,13 +15,19 @@
 #ifndef OLYMPICSA2_H_
 #define OLYMPICSA2_H_
 
+#define HASH_TABLE_DEFAULT_SIZE 2;
+
 #include "wet2util.h"
+#include "HashObj.h"
+#include "BinaryTree.h"
+#include "Team.h"
+
 
 class olympics_t {
+
 private:
-	//
-	// Here you may add anything you want
-	//
+	
+    HashObj<BinaryTree<Team>> * m_teams;
 	
 public:
 	// <DO-NOT-MODIFY> {
