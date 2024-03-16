@@ -1,3 +1,9 @@
+#include <cmath>
+
+
+#define HASH_TABLE_DEFAULT_SIZE 2
+
+
 template <typename T>
 class HashObj {
 
@@ -5,14 +11,14 @@ private:
 
 	int m_hash_table_size;
 	int m_used_cells;
-	T* m_data[];
+	T* m_data;
 
 public:
 
 	HashObj() : m_hash_table_size(HASH_TABLE_DEFAULT_SIZE), m_data(new T[HASH_TABLE_DEFAULT_SIZE]), m_used_cells(0) {}
 
 	int getCapacityFactor() const{
-		return data->getTreeSize() / m_hash_table_size;
+		return m_data->getTreeSize() / m_hash_table_size;
 	}
 
 	int getIndexOfKey(int key) {

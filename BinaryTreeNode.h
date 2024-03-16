@@ -32,6 +32,14 @@ public:
 		m_height = height;
 	}
 
+	int getSubtreeSize() const {
+		return m_subtree_size;
+	}
+
+	void setSubtreeSize(const int subtree_size) {
+		m_subtree_size = subtree_size;
+	}
+
 	bool getDeletionApproval() const {
 		return m_deletion_approval;
 	}

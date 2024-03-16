@@ -3,7 +3,7 @@
 
 #define MAX_TEAMS_PER_CONTESTANT 3
 
-
+#include <iostream>
 #include "BinaryTreeNode.h"
 
 class Contestant {

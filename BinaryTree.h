@@ -68,12 +68,18 @@ public:
 		BinaryTreeNode<T>* x = imbalanced_node->getLeft();
 		BinaryTreeNode<T>* T2 = x->getRight();
 
+		// Perform rotation
 		x->setRight(imbalanced_node);
 		imbalanced_node->setLeft(T2);
 
-		//update heights
+		// Update heights
 		imbalanced_node->setHeight(max(height(imbalanced_node->getLeft()), height(imbalanced_node->getRight())) + 1);
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
+
+		// Update subtree sizes
+		updateSubtreeSize(imbalanced_node);
+		updateSubtreeSize(x);
+
 		return x; // the new root of the subtree
 	}
 
@@ -82,12 +88,18 @@ public:
 		BinaryTreeNode<T>* x = imbalanced_node->getRight();
 		BinaryTreeNode<T>* T2 = x->getLeft();
 
+		// Perform rotation
 		x->setLeft(imbalanced_node);
 		imbalanced_node->setRight(T2);
 
-		//update heights
+		// Update heights
 		imbalanced_node->setHeight(max(height(imbalanced_node->getLeft()), height(imbalanced_node->getRight())) + 1);
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
+
+		// Update subtree sizes
+		updateSubtreeSize(imbalanced_node);
+		updateSubtreeSize(x);
+
 		return x; //the new root of the subtree
 	}
 
@@ -105,6 +117,7 @@ public:
 	{
 		if (root == nullptr) {
 			root = new_node;
+			root->setSubtreeSize(1); // Update subtree size for the new node
 			if (first_insertion) {
 				setRoot(root);
 				first_insertion = false;
@@ -122,6 +135,9 @@ public:
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
+
+		root->setSubtreeSize(1 + (root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0) +
+			(root->getRight() != nullptr ? root->getRight()->getSubtreeSize() : 0)); // Update subtree size for the current node
 
 		int bf = getBalanceFactor(root);
 
@@ -151,24 +167,6 @@ public:
 		}
 
 		return root;
-	}
-
-	BinaryTreeNode<T>* search(int id)
-	{
-		if (this == nullptr)
-			return nullptr;
-		return search_aux(m_root, id);
-	}
-
-	BinaryTreeNode<T>* search_aux(BinaryTreeNode<T>* root, T* data)
-	{
-		if (root == nullptr || root->getData() == data)
-			return root;
-
-		if (data < root->getData())
-			return search_aux(root->getLeft(), data);
-		else
-			return search_aux(root->getRight(), data);
 	}
 	
 	StatusType remove(T* data) {
@@ -217,10 +215,10 @@ public:
 			root->setRight(remove_aux(root->getRight(), temp->getData()));
 		}
 
-		// Update height
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
+		root->setSubtreeSize(1 + (root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0) +
+			(root->getRight() != nullptr ? root->getRight()->getSubtreeSize() : 0));
 
-		// Perform rotations if necessary
 		int bf = getBalanceFactor(root);
 		if (bf > 1 && getBalanceFactor(root->getLeft()) >= 0)
 			return rightRotation(root);
@@ -238,6 +236,44 @@ public:
 		}
 
 		return root;
+	}
+
+	BinaryTreeNode<T>* search(T* data) {
+		if (this == nullptr)
+			return nullptr;
+		return search_aux(m_root, data);
+	}
+
+	BinaryTreeNode<T>* search_aux(BinaryTreeNode<T>* root, T* data) {
+		if (root == nullptr || *(root->getData()) == *data)
+			return root;
+
+		if (*data < *(root->getData()))
+			return search_aux(root->getLeft(), data);
+		else
+			return search_aux(root->getRight(), data);
+	}
+
+	BinaryTreeNode<T>* getElementByRank(int rank) {
+		return getElementByRank_aux(m_root, rank);
+	}
+	
+	BinaryTreeNode<T>* getElementByRank_aux(BinaryTreeNode<T>* root, int rank) {
+		if (root == nullptr || rank <= 0 || rank > root->getSubtreeSize()) {
+			return nullptr;
+		}
+
+		int leftSubtreeSize = (root->getLeft() != nullptr) ? root->getLeft()->getSubtreeSize() : 0;
+
+		if (rank == leftSubtreeSize + 1) {
+			return root;
+		}
+		else if (rank <= leftSubtreeSize) {
+			return getElementByRank_aux(root->getLeft(), rank);
+		}
+		else {
+			return getElementByRank_aux(root->getRight(), rank - leftSubtreeSize - 1);
+		}
 	}
 
 	BinaryTreeNode<T>* getMaxNode() {
@@ -264,6 +300,12 @@ public:
 		return getMinNode_aux(root->getLeft());
 	}
 	
+	void updateSubtreeSize(BinaryTreeNode<T>* node) {
+		if (node == nullptr) return;
+		node->setSubtreeSize(1 + (node->getLeft() != nullptr ? node->getLeft()->getSubtreeSize() : 0) +
+			(node->getRight() != nullptr ? node->getRight()->getSubtreeSize() : 0));
+	}
+	
 	void postorderDelete(bool delete_data = false) {
 		postorderDelete_aux(m_root, delete_data);
 		setRoot(nullptr);
@@ -278,6 +320,28 @@ public:
 		root->setDeletionApproval(delete_data);
 		delete root;
 	}
+
+	void printTree() {
+		printTree_aux(this->getRoot(), 3);
+	}
+
+	void printTree_aux(BinaryTreeNode<T>* n, int space)
+	{
+		if (n == nullptr)
+		{
+			return;
+		}
+		space += SPACE;
+		printTree_aux(n->getRight(), space);
+		cout << endl;
+		for (int i = SPACE; i < space; i++)
+		{
+			cout << " ";
+		}
+		cout << *(n->getData()) << " - " << n->getSubtreeSize() << "\n";
+		printTree_aux(n->getLeft(), space);
+	}
+
 };
 
 #endif

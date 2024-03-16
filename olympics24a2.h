@@ -15,7 +15,6 @@
 #ifndef OLYMPICSA2_H_
 #define OLYMPICSA2_H_
 
-#define HASH_TABLE_DEFAULT_SIZE 2;
 
 #include "wet2util.h"
 #include "HashObj.h"
