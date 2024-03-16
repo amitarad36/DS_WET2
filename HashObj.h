@@ -25,4 +25,9 @@ public:
 		double num = (m_hash_table_size * key * (sqrt(5) - 1) / 2);
 		return (num - static_cast<int>(num));
 	}
+
+	T* getData() {
+		return m_data;
+	}
+
 };

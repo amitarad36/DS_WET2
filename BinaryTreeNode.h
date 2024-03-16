@@ -16,7 +16,7 @@ private:
 
 public:
 
-	BinaryTreeNode(T* data) : m_data(data), m_height(0), m_left(nullptr), m_right(nullptr), m_deletion_approval(false) {}
+	BinaryTreeNode(T* data) : m_data(data), m_height(0), m_subtree_size(0), m_left(nullptr), m_right(nullptr), m_deletion_approval(false) {}
 
 	~BinaryTreeNode() {
 		if (m_deletion_approval) {

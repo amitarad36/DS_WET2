@@ -76,11 +76,10 @@ public:
 		imbalanced_node->setHeight(max(height(imbalanced_node->getLeft()), height(imbalanced_node->getRight())) + 1);
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
 
-		// Update subtree sizes
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
 
-		return x; // the new root of the subtree
+		return x;
 	}
 
 	BinaryTreeNode<T>* leftRotation(BinaryTreeNode<T>* imbalanced_node)
@@ -96,11 +95,10 @@ public:
 		imbalanced_node->setHeight(max(height(imbalanced_node->getLeft()), height(imbalanced_node->getRight())) + 1);
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
 
-		// Update subtree sizes
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
 
-		return x; //the new root of the subtree
+		return x;
 	}
 
 	StatusType insert(T* new_data) {
@@ -136,8 +134,7 @@ public:
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 
-		root->setSubtreeSize(1 + (root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0) +
-			(root->getRight() != nullptr ? root->getRight()->getSubtreeSize() : 0)); // Update subtree size for the current node
+		updateSubtreeSize(root);
 
 		int bf = getBalanceFactor(root);
 
@@ -216,8 +213,9 @@ public:
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
-		root->setSubtreeSize(1 + (root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0) +
-			(root->getRight() != nullptr ? root->getRight()->getSubtreeSize() : 0));
+
+		updateSubtreeSize(root);
+
 
 		int bf = getBalanceFactor(root);
 		if (bf > 1 && getBalanceFactor(root->getLeft()) >= 0)

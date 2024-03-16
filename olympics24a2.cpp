@@ -1,9 +1,6 @@
 #include "olympics24a2.h"
 
-olympics_t::olympics_t()
-{
-
-}
+olympics_t::olympics_t() : m_teams(new HashObj<BinaryTree<Team>>()) {}
 
 olympics_t::~olympics_t()
 {
@@ -13,8 +10,16 @@ olympics_t::~olympics_t()
 
 StatusType olympics_t::add_team(int teamId)
 {
-	// TODO: Your code goes here
-	return StatusType::SUCCESS;
+	if (teamId <= 0)
+		return StatusType::INVALID_INPUT;
+	int team_index = m_teams->getIndexOfKey(teamId);
+	Team* new_team = new Team(teamId);
+	if (m_teams->getData()[team_index].search(new_team) == nullptr) {
+		delete new_team;
+		return StatusType::FAILURE;
+	}
+	//add a logic of extending the array
+	return m_teams->getData()[team_index].insert(new_team);
 }
 
 StatusType olympics_t::remove_team(int teamId)
