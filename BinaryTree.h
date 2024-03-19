@@ -340,6 +340,20 @@ public:
 		printTree_aux(n->getLeft(), space);
 	}
 
+	template <typename T>
+	void inorderToArray(T* arr[]) {
+		int i = 0;
+		inorderToArray_aux(getRoot(), arr, i);
+	}
+
+	template <typename T>
+	void inorderToArray_aux(BinaryTreeNode<T>* root, T* arr[], int& i) {
+		if (root == nullptr)
+			return;
+		inorderToArray_aux(root->getLeft(), arr, i);
+		arr[i++] = dynamic_cast<T*>(root->getData());
+		inorderToArray_aux(root->getRight(), arr, i);
+	}
 };
 
 #endif

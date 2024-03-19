@@ -13,8 +13,8 @@ private:
 
 	int m_id;
 	int m_num_of_wins;
-	BinaryTree<Contestant> m_contestants_tree;
-	Stack<int> m_contestants_stregth_stack;
+	BinaryTree<Contestant> * m_contestants_tree;
+	Stack<int> * m_contestants_stregth_stack;
 
 public:
 

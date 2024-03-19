@@ -1,25 +1,37 @@
-﻿  Team.cpp
-  main24a2.cpp
+﻿  main24a2.cpp
+  olympics24a2.cpp
 C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(193,34): warning C4101: 'e': unreferenced local variable
-  (compiling source file 'main24a2.cpp')
+  (compiling source file 'olympics24a2.cpp')
   C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(193,34):
   the template instantiation context (the oldest one first) is
-  	C:\DS_Projects\DS_WET2\olympicsProject2\main24a2.cpp(28,18):
-  	see reference to class template instantiation 'BinaryTree<int>' being compiled
+  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(18,35):
+  	see reference to class template instantiation 'BinaryTree<T>' being compiled
+          with
+          [
+              T=Team
+          ]
   	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(177,21):
   	while compiling class template member function 'BinaryTreeNode<T> *BinaryTree<T>::remove_aux(BinaryTreeNode<T> *,T *)'
           with
           [
-              T=int
+              T=Team
           ]
   		C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(172,10):
-  		see the first reference to 'BinaryTree<int>::remove_aux' in 'BinaryTree<int>::remove'
-  		C:\DS_Projects\DS_WET2\olympicsProject2\main24a2.cpp(59,14):
-  		see the first reference to 'BinaryTree<int>::remove' in 'main'
+  		see the first reference to 'BinaryTree<T>::remove_aux' in 'BinaryTree<T>::remove'
+          with
+          [
+              T=Team
+          ]
+  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(57,24):
+  		see the first reference to 'BinaryTree<T>::remove' in 'olympics_t::remove_team'
+          with
+          [
+              T=Team
+          ]
   
 C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(204,34): warning C4101: 'e': unreferenced local variable
-  (compiling source file 'main24a2.cpp')
+  (compiling source file 'olympics24a2.cpp')
   
-  olympics24a2.cpp
   Generating Code...
+C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(99): warning C4715: 'HashObj<Team>::resize': not all control paths return a value
   olympicsProject2.vcxproj -> C:\DS_Projects\DS_WET2\olympicsProject2\x64\Debug\olympicsProject2.exe

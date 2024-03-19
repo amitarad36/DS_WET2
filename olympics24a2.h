@@ -26,10 +26,10 @@ class olympics_t {
 
 private:
 	
-    HashObj<BinaryTree<Team>> * m_teams;
 	
 public:
 	// <DO-NOT-MODIFY> {
+    HashObj<Team> * m_teams;
 
     olympics_t();
 

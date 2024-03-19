@@ -23,59 +23,51 @@ void print(string cmd, output_t<int> res);
 #include <iostream>
 #include "BinaryTree.h"
 
+#include <iostream>
+
 int main() {
-	// Create a BinaryTree of integers
-	BinaryTree<int> tree;
+    // Create an instance of the olympics_t class
+    olympics_t olympics;
 
-	// Insert some elements
-	tree.insert(new int(10));
-	tree.insert(new int(5));
-	tree.insert(new int(4));
-	tree.insert(new int(1));
-	tree.insert(new int(15));
-	tree.insert(new int(3));
-	tree.insert(new int(7));
-	tree.insert(new int(12));
-	tree.insert(new int(17));
-	tree.insert(new int(127));
+    // Insert 10 teams
+    for (int i = 1; i <= 10; ++i) {
+        StatusType add_status = olympics.add_team(i);
+        if (add_status == StatusType::SUCCESS) {
+            std::cout << "Team " << i << " added successfully." << std::endl;
+        }
+        else {
+            std::cout << "Failed to add team " << i << "." << std::endl;
+        }
 
+        // Print hash table after insertion
+        std::cout << "Hash Table After Insertion:" << std::endl;
+        for (int j = 0; j < olympics.m_teams->getHashTableSize(); ++j) {
+            std::cout << "Hash Table Index " << j << ":" << std::endl;
+            olympics.m_teams->getData()[j]->printTree();
+            std::cout << std::endl;
+        }
+    }
 
-	// Test the getElementByRank function
-	for (int i = 1; i <= tree.getTreeSize(); ++i) {
-		BinaryTreeNode<int>* node = tree.getElementByRank(i);
-		if (node != nullptr) {
-			std::cout << "Element at rank " << i << ": " << *(node->getData()) << std::endl;
-		}
-		else {
-			std::cout << "No element found at rank " << i << std::endl;
-		}
-	}
-	tree.printTree();
+    // Remove 5 teams
+    for (int i = 1; i <= 5; ++i) {
+        StatusType remove_status = olympics.remove_team(i);
+        if (remove_status == StatusType::SUCCESS) {
+            std::cout << "Team " << i << " removed successfully." << std::endl;
+        }
+        else {
+            std::cout << "Failed to remove team " << i << "." << std::endl;
+        }
 
-	for (int i = 0; i < 10; i++) {
-		int* num = new int(); // Dynamically allocate memory for each input integer
-		std::cin >> *num;     // Read input integer from std::cin
+        // Print hash table after removal
+        std::cout << "Hash Table After Removal:" << std::endl;
+        for (int j = 0; j < olympics.m_teams->getHashTableSize(); ++j) {
+            std::cout << "Hash Table Index " << j << ":" << std::endl;
+            olympics.m_teams->getData()[j]->printTree();
+            std::cout << std::endl;
+        }
+    }
 
-		tree.remove(num);     // Pass the pointer 'num' to the remove function
-		delete num;           // Deallocate memory allocated for 'num'
-
-		// Print the elements in the tree after removal
-		for (int j = 1; j <= tree.getTreeSize(); ++j) {
-			BinaryTreeNode<int>* node = tree.getElementByRank(j);
-			if (node != nullptr) {
-				std::cout << "Element at rank " << j << ": " << *(node->getData()) << std::endl;
-			}
-			else {
-				std::cout << "No element found at rank " << j << std::endl;
-			}
-		}
-
-		tree.printTree();
-	}
-
-
-
-	return 0;
+    return 0;
 }
 
 
