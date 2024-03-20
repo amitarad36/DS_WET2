@@ -35,17 +35,11 @@ public:
             topNode = topNode->next;
             delete temp;
         }
-        else {
-            // std::cerr << "Stack underflow: Cannot pop from an empty stack." << std::endl;
-        }
     }
 
     const T& top() const {
         if (!empty()) {
             return topNode->data;
-        }
-        else {
-            // throw std::out_of_range("Stack is empty");
         }
     }
 
@@ -53,13 +47,27 @@ public:
         return topNode == nullptr;
     }
 
-    size_t size() const {
-        size_t count = 0;
+    int size() const {
+        int count = 0;
         Node<T>* current = topNode;
         while (current != nullptr) {
             count++;
             current = current->next;
         }
         return count;
+    }
+
+    void print() const {
+        if (empty()) {
+            std::cout << "Stack is empty." << std::endl;
+            return;
+        }
+        std::cout << "Stack (top to bottom): ";
+        Node<T>* current = topNode;
+        while (current != nullptr) {
+            std::cout << *(current->data) << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
     }
 };

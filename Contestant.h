@@ -6,10 +6,12 @@
 #include <iostream>
 #include "BinaryTreeNode.h"
 
+
 class Contestant {
 private:
 	int m_strength;
-
+	int m_contestant_time_stamp;
+	static int numContestants;
 public:
 
 	Contestant(int strength);
@@ -17,6 +19,8 @@ public:
 	virtual ~Contestant();
 
 	int getStrength() const;
+
+	int getTimeStamp() const;
 
 	void setStrength(int strength);
 

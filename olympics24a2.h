@@ -29,7 +29,7 @@ private:
 	
 public:
 	// <DO-NOT-MODIFY> {
-    HashObj<Team> * m_teams;
+    HashObj<Team> * m_teams; // return to private!!!!!!!!!!!
 
     olympics_t();
 

@@ -29,42 +29,29 @@ int main() {
     // Create an instance of the olympics_t class
     olympics_t olympics;
 
-    // Insert 10 teams
-    for (int i = 1; i <= 10; ++i) {
-        StatusType add_status = olympics.add_team(i);
-        if (add_status == StatusType::SUCCESS) {
-            std::cout << "Team " << i << " added successfully." << std::endl;
-        }
-        else {
-            std::cout << "Failed to add team " << i << "." << std::endl;
-        }
+    // Add teams
+    olympics.add_team(1);
+    olympics.add_team(2);
 
-        // Print hash table after insertion
-        std::cout << "Hash Table After Insertion:" << std::endl;
-        for (int j = 0; j < olympics.m_teams->getHashTableSize(); ++j) {
-            std::cout << "Hash Table Index " << j << ":" << std::endl;
-            olympics.m_teams->getData()[j]->printTree();
-            std::cout << std::endl;
-        }
+    // Add players to teams
+    olympics.add_player(1, 1);
+    olympics.add_player(1, 3);
+    olympics.add_player(1, 3);
+    olympics.add_player(1, 5);
+    olympics.add_player(1, 7);
+    olympics.add_player(1, 8);
+    olympics.add_player(2, 1);
+
+    // Play a match between teams
+    output_t<int> match_result = olympics.play_match(1, 2);
+
+    // Check the match result
+    if (match_result.status() == StatusType::SUCCESS) {
+        std::cout << "Match played successfully." << std::endl;
+        
     }
-
-    // Remove 5 teams
-    for (int i = 1; i <= 5; ++i) {
-        StatusType remove_status = olympics.remove_team(i);
-        if (remove_status == StatusType::SUCCESS) {
-            std::cout << "Team " << i << " removed successfully." << std::endl;
-        }
-        else {
-            std::cout << "Failed to remove team " << i << "." << std::endl;
-        }
-
-        // Print hash table after removal
-        std::cout << "Hash Table After Removal:" << std::endl;
-        for (int j = 0; j < olympics.m_teams->getHashTableSize(); ++j) {
-            std::cout << "Hash Table Index " << j << ":" << std::endl;
-            olympics.m_teams->getData()[j]->printTree();
-            std::cout << std::endl;
-        }
+    else {
+        std::cout << "Failed to play match." << std::endl;
     }
 
     return 0;

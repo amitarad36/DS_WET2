@@ -14,7 +14,7 @@ private:
 	int m_id;
 	int m_num_of_wins;
 	BinaryTree<Contestant> * m_contestants_tree;
-	Stack<int> * m_contestants_stregth_stack;
+	Stack<Contestant*> * m_contestants_stregth_stack;
 
 public:
 
@@ -23,6 +23,19 @@ public:
 	virtual ~Team();
 
 	int getTeamID() const;
+
+	void setNumOfWins(int wins);
+
+	int getNumOfWins() const;
+
+	int getMeanStrength() const {
+		BinaryTreeNode<Contestant>* mean_contestant_node = m_contestants_tree->getElementByRank((m_contestants_tree->getTreeSize()/2) + 1);
+		return mean_contestant_node->getData()->getStrength();
+	}
+
+	BinaryTree<Contestant>* getContestants() const;
+
+	Stack<Contestant*>* getContestantsStack() const;
 
 	bool operator<(const Team& t) const;
 

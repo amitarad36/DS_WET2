@@ -111,8 +111,7 @@ public:
 		return StatusType::SUCCESS;
 	}
 
-	BinaryTreeNode<T>* insert_aux(BinaryTreeNode<T>* root, BinaryTreeNode<T>* new_node)
-	{
+	BinaryTreeNode<T>* insert_aux(BinaryTreeNode<T>* root, BinaryTreeNode<T>* new_node) {
 		if (root == nullptr) {
 			root = new_node;
 			root->setSubtreeSize(1); // Update subtree size for the new node
@@ -255,7 +254,7 @@ public:
 	BinaryTreeNode<T>* getElementByRank(int rank) {
 		return getElementByRank_aux(m_root, rank);
 	}
-	
+
 	BinaryTreeNode<T>* getElementByRank_aux(BinaryTreeNode<T>* root, int rank) {
 		if (root == nullptr || rank <= 0 || rank > root->getSubtreeSize()) {
 			return nullptr;
@@ -297,18 +296,18 @@ public:
 			return root;
 		return getMinNode_aux(root->getLeft());
 	}
-	
+
 	void updateSubtreeSize(BinaryTreeNode<T>* node) {
 		if (node == nullptr) return;
 		node->setSubtreeSize(1 + (node->getLeft() != nullptr ? node->getLeft()->getSubtreeSize() : 0) +
 			(node->getRight() != nullptr ? node->getRight()->getSubtreeSize() : 0));
 	}
-	
+
 	void postorderDelete(bool delete_data = false) {
 		postorderDelete_aux(m_root, delete_data);
 		setRoot(nullptr);
 	}
-
+	
 	void postorderDelete_aux(BinaryTreeNode<T>* root, bool delete_data) {
 		if (root == nullptr) {
 			return;
@@ -318,7 +317,7 @@ public:
 		root->setDeletionApproval(delete_data);
 		delete root;
 	}
-
+		
 	void printTree() {
 		printTree_aux(this->getRoot(), 3);
 	}
@@ -336,7 +335,7 @@ public:
 		{
 			cout << " ";
 		}
-		cout << *(n->getData()) << " - " << n->getSubtreeSize() << "\n";
+		cout << *(n->getData()) << "\n";
 		printTree_aux(n->getLeft(), space);
 	}
 
