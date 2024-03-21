@@ -12,6 +12,7 @@ class Team {
 private:
 
 	int m_id;
+	int m_team_strength;
 	int m_num_of_wins;
 	BinaryTree<Contestant> * m_contestants_tree;
 	Stack<Contestant*> * m_contestants_stregth_stack;
@@ -27,6 +28,10 @@ public:
 	void setNumOfWins(int wins);
 
 	int getNumOfWins() const;
+
+	void setTeamStrength(int strength);
+
+	int getTeamStrength() const;
 
 	int getMeanStrength() const {
 		BinaryTreeNode<Contestant>* mean_contestant_node = m_contestants_tree->getElementByRank((m_contestants_tree->getTreeSize()/2) + 1);

@@ -1,6 +1,6 @@
 #include "Team.h"
 
-Team::Team(int team_id) : m_id(team_id), m_num_of_wins(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_stregth_stack(new Stack<Contestant*>()) {}
+Team::Team(int team_id) : m_id(team_id), m_num_of_wins(0), m_team_strength(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_stregth_stack(new Stack<Contestant*>()) {}
 
 Team::~Team() {
 	m_contestants_tree->postorderDelete(true);
@@ -17,6 +17,14 @@ void Team::setNumOfWins(int wins) {
 
 int Team::getNumOfWins() const {
 	return m_num_of_wins;
+}
+
+void Team::setTeamStrength(int strength) {
+	m_team_strength = strength;
+}
+
+int Team::getTeamStrength() const {
+	return m_team_strength;
 }
 
 BinaryTree<Contestant>* Team::getContestants() const {
