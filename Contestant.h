@@ -6,7 +6,6 @@
 #include <iostream>
 #include "BinaryTreeNode.h"
 
-
 class Contestant {
 private:
 	int m_strength;

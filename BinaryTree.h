@@ -8,7 +8,7 @@
 #include "iostream"
 #include "wet2util.h"
 #include "BinaryTreeNode.h"
-
+#include "Team.h"
 
 using namespace std;
 
@@ -463,16 +463,6 @@ public:
 		return getMinNode_aux(root->getLeft());
 	}
 
-	int compareByStrengthAndId(const Team* team1, const Team* team2) {
-		if (team1->getTeamStrength() == team2->getTeamStrength()) {
-			if (team1->getTeamID() == team2->getTeamID()) {
-				return 0; // Teams are equal
-			}
-			return team1->getTeamID() - team2->getTeamID(); // Compare IDs
-		}
-		return team1->getTeamStrength() - team2->getTeamStrength(); // Compare strengths
-	}
-
 	void updateSubtreeSize(BinaryTreeNode<T>* node) {
 		if (node == nullptr) return;
 		node->setSubtreeSize(1 + (node->getLeft() != nullptr ? node->getLeft()->getSubtreeSize() : 0) +
@@ -539,6 +529,17 @@ public:
 		arr[i++] = dynamic_cast<T*>(root->getData());
 		inorderToArray_aux(root->getRight(), arr, i);
 	}
+
 };
+
+static int compareByStrengthAndId(Team* team1, Team* team2) {
+    if (team1->getTeamStrength() == team2->getTeamStrength()) {
+        if (team1->getTeamID() == team2->getTeamID()) {
+            return 0; // Teams are equal
+        }
+        return team1->getTeamID() - team2->getTeamID(); // Compare IDs
+    }
+    return team1->getTeamStrength() - team2->getTeamStrength(); // Compare strengths
+}
 
 #endif

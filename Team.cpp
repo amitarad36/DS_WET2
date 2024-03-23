@@ -1,10 +1,10 @@
 #include "Team.h"
 
-Team::Team(int team_id) : m_id(team_id), m_num_of_wins(0), m_team_strength(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_stregth_stack(new Stack<Contestant*>()) {}
+Team::Team(int team_id) : m_id(team_id), m_num_of_wins(0), m_team_strength(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_strength_stack(new Stack<Contestant*>()) {}
 
 Team::~Team() {
 	m_contestants_tree->postorderDelete(true);
-	delete m_contestants_stregth_stack;
+	delete m_contestants_strength_stack;
 }
 
 int Team::getTeamID() const {
@@ -37,7 +37,7 @@ BinaryTree<Contestant>* Team::getContestants() const {
 }
 
 Stack<Contestant*>* Team::getContestantsStack() const{
-	return m_contestants_stregth_stack;
+	return m_contestants_strength_stack;
 }
 
 bool Team::operator<(const Team& c) const {
