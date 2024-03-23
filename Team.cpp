@@ -11,6 +11,11 @@ int Team::getTeamID() const {
 	return m_id;
 }
 
+int Team::getRank() const {
+	return m_team_strength + m_num_of_wins;
+}
+
+
 void Team::setNumOfWins(int wins) {
 	m_num_of_wins = wins;
 }

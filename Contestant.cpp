@@ -14,6 +14,10 @@ int Contestant::getStrength() const {
 	return m_strength;
 }
 
+int Contestant::getRank() const {
+	return 0;
+}
+
 int Contestant::getTimeStamp() const {
 	return m_contestant_time_stamp;
 }

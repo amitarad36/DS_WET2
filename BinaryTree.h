@@ -2,10 +2,13 @@
 #define BINARY_TREE_H
 
 #define SPACE 10
+#define MIN_RANK -1 // might be 0???
+
 
 #include "iostream"
 #include "wet2util.h"
 #include "BinaryTreeNode.h"
+
 
 using namespace std;
 
@@ -114,7 +117,8 @@ public:
 	BinaryTreeNode<T>* insert_aux(BinaryTreeNode<T>* root, BinaryTreeNode<T>* new_node) {
 		if (root == nullptr) {
 			root = new_node;
-			root->setSubtreeSize(1); // Update subtree size for the new node
+			root->setSubtreeSize(1);
+			root->setSubtreeMaxRankedTeam(new_node->getData()->getRank());
 			if (first_insertion) {
 				setRoot(root);
 				first_insertion = false;
@@ -134,6 +138,7 @@ public:
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 
 		updateSubtreeSize(root);
+		updateSubtreeMaxRankedTeam(root);
 
 		int bf = getBalanceFactor(root);
 
@@ -164,7 +169,7 @@ public:
 
 		return root;
 	}
-	
+
 	StatusType remove(T* data) {
 		if (search(data) == nullptr)
 			return StatusType::FAILURE;
@@ -214,7 +219,7 @@ public:
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 
 		updateSubtreeSize(root);
-
+		updateSubtreeMaxRankedTeam(root);
 
 		int bf = getBalanceFactor(root);
 		if (bf > 1 && getBalanceFactor(root->getLeft()) >= 0)
@@ -249,6 +254,167 @@ public:
 			return search_aux(root->getLeft(), data);
 		else
 			return search_aux(root->getRight(), data);
+	}
+
+	StatusType insertByStrengthAndId(T* new_data) {
+		BinaryTreeNode<T>* new_node = new BinaryTreeNode<T>(new_data);
+		if (new_node == nullptr) {
+			return StatusType::ALLOCATION_ERROR;
+		}
+		setRoot(insertByStrengthAndId_aux(m_root, new_node));
+		m_tree_size++;
+		return StatusType::SUCCESS;
+	}
+
+	BinaryTreeNode<T>* insertByStrengthAndId_aux(BinaryTreeNode<T>* root, BinaryTreeNode<T>* new_node) {
+		if (root == nullptr) {
+			root = new_node;
+			root->setSubtreeSize(1);
+			root->setSubtreeMaxRankedTeam(new_node->getData()->getRank());
+			if (first_insertion) {
+				setRoot(root);
+				first_insertion = false;
+			}
+			return root;
+		}
+
+		if (compareByStrengthAndId(new_node->getData(), root->getData())) {
+			root->setLeft(insertByStrengthAndId_aux(root->getLeft(), new_node));
+		}
+		else if (compareByStrengthAndId(root->getData(), new_node->getData())) {
+			root->setRight(insertByStrengthAndId_aux(root->getRight(), new_node));
+		}
+		else {
+			// If strengths are equal, prioritize lower ID to the right
+			if (new_node->getData()->getTeamID() < root->getData()->getTeamID())
+				root->setRight(insertByStrengthAndId_aux(root->getRight(), new_node));
+			else
+				root->setLeft(insertByStrengthAndId_aux(root->getLeft(), new_node));
+		}
+
+		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
+
+		updateSubtreeSize(root);
+		updateSubtreeMaxRankedTeam(root); // Update the max ranked team
+
+		int bf = getBalanceFactor(root);
+
+		//LL imbalance
+		if (bf > 1 && compareByStrengthAndId(new_node->getData(), root->getLeft()->getData())) {
+			return rightRotation(root);
+		}
+
+		//RR imbalance
+		if (bf < -1 && compareByStrengthAndId(root->getRight()->getData(), new_node->getData())) {
+			return leftRotation(root);
+		}
+
+		//LR imbalance
+		if (bf > 1 && compareByStrengthAndId(new_node->getData(), root->getLeft()->getData())) {
+			root->setLeft(leftRotation(root->getLeft()));
+			return rightRotation(root);
+		}
+
+		//RL imbalance
+		if (bf < -1 && compareByStrengthAndId(root->getRight()->getData(), new_node->getData())) {
+			root->setRight(rightRotation(root->getRight()));
+			return leftRotation(root);
+		}
+
+		return root;
+	}
+
+	StatusType removeByStrengthAndId(T* data) {
+		if (searchByStrengthAndId(data) == nullptr)
+			return StatusType::FAILURE;
+		setRoot(removeByStrengthAndId_aux(m_root, data));
+		m_tree_size--;
+		return StatusType::SUCCESS;
+	}
+
+	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
+		if (root == nullptr)
+			return nullptr;
+
+		if (!compareByStrengthAndId(root->getData(), data) && !compareByStrengthAndId(data, root->getData())) //search right
+			root->setRight(removeByStrengthAndId_aux(root->getRight(), data));
+		else if (compareByStrengthAndId(root->getData(), data)) //search left
+			root->setLeft(removeByStrengthAndId_aux(root->getLeft(), data));
+		else // found the node with the id
+		{
+			if (root->getLeft() == nullptr) // no children or only right child
+			{
+				BinaryTreeNode<T>* temp = root->getRight();
+				try {
+					delete root;
+				}
+				catch (const std::bad_alloc& e) {
+					throw;
+				}
+				return temp;
+			}
+			else if (root->getRight() == nullptr)
+			{
+				BinaryTreeNode<T>* temp = root->getLeft();
+				try {
+					delete root;
+				}
+				catch (const std::bad_alloc& e) {
+					throw;
+				}
+				return temp;
+			}
+			// Node with two children
+			BinaryTreeNode<T>* temp = minNode(root->getRight());
+			root->setData(temp->getData());
+			root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
+		}
+
+		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
+
+		updateSubtreeSize(root);
+		updateSubtreeMaxRankedTeam(root); // Update the max ranked team
+
+		int bf = getBalanceFactor(root);
+		if (bf > 1 && getBalanceFactor(root->getLeft()) >= 0)
+			return rightRotation(root);
+		if (bf < -1 && getBalanceFactor(root->getRight()) <= 0)
+			return leftRotation(root);
+		if (bf > 1 && getBalanceFactor(root->getLeft()) < 0)
+		{
+			root->setLeft(leftRotation(root->getLeft()));
+			return rightRotation(root);
+		}
+		if (bf < -1 && getBalanceFactor(root->getRight()) > 0)
+		{
+			root->setRight(rightRotation(root->getRight()));
+			return leftRotation(root);
+		}
+
+		return root;
+	}
+
+	BinaryTreeNode<T>* searchByStrengthAndId(T* data) {
+		if (this == nullptr)
+			return nullptr;
+		return search_auxByStrengthAndId(m_root, data);
+	}
+
+	BinaryTreeNode<T>* search_auxByStrengthAndId(BinaryTreeNode<T>* root, T* data) {
+		if (root == nullptr || compareByStrengthAndId(root->getData(), data))
+			return root;
+
+		if (compareByStrengthAndId(root->getData(), data)) // Check if data is stronger
+			return search_auxByStrengthAndId(root->getRight(), data); // Traverse right
+		else if (compareByStrengthAndId(data, root->getData())) // Check if data is weaker
+			return search_auxByStrengthAndId(root->getLeft(), data); // Traverse left
+		else {
+			// If strengths are equal, prioritize lower ID to the right
+			if (data->getTeamID() < root->getData()->getTeamID())
+				return search_auxByStrengthAndId(root->getRight(), data); // Traverse right
+			else
+				return search_auxByStrengthAndId(root->getLeft(), data); // Traverse left
+		}
 	}
 
 	BinaryTreeNode<T>* getElementByRank(int rank) {
@@ -297,17 +463,39 @@ public:
 		return getMinNode_aux(root->getLeft());
 	}
 
+	int compareByStrengthAndId(const Team* team1, const Team* team2) {
+		if (team1->getTeamStrength() == team2->getTeamStrength()) {
+			if (team1->getTeamID() == team2->getTeamID()) {
+				return 0; // Teams are equal
+			}
+			return team1->getTeamID() - team2->getTeamID(); // Compare IDs
+		}
+		return team1->getTeamStrength() - team2->getTeamStrength(); // Compare strengths
+	}
+
 	void updateSubtreeSize(BinaryTreeNode<T>* node) {
 		if (node == nullptr) return;
 		node->setSubtreeSize(1 + (node->getLeft() != nullptr ? node->getLeft()->getSubtreeSize() : 0) +
 			(node->getRight() != nullptr ? node->getRight()->getSubtreeSize() : 0));
 	}
 
+	void updateSubtreeMaxRankedTeam(BinaryTreeNode<T>* root) {
+		if (root == nullptr) return;
+
+		int rank = root->getData()->getRank();
+
+		int left_rank = (root->getLeft() != nullptr) ? root->getLeft()->getSubtreeMaxRankedTeam() : MIN_RANK;
+
+		int right_rank = (root->getRight() != nullptr) ? root->getRight()->getSubtreeMaxRankedTeam() : MIN_RANK;
+
+		root->setSubtreeMaxRankedTeam(max(rank, max(left_rank, right_rank)));
+	}
+
 	void postorderDelete(bool delete_data = false) {
 		postorderDelete_aux(m_root, delete_data);
 		setRoot(nullptr);
 	}
-	
+
 	void postorderDelete_aux(BinaryTreeNode<T>* root, bool delete_data) {
 		if (root == nullptr) {
 			return;
@@ -317,7 +505,7 @@ public:
 		root->setDeletionApproval(delete_data);
 		delete root;
 	}
-		
+
 	void printTree() {
 		printTree_aux(this->getRoot(), 3);
 	}
@@ -335,17 +523,15 @@ public:
 		{
 			cout << " ";
 		}
-		cout << *(n->getData()) << "\n";
+		cout << *(n->getData()) << "-" << n->getSubtreeMaxRankedTeam() << endl;
 		printTree_aux(n->getLeft(), space);
 	}
 
-	template <typename T>
 	void inorderToArray(T* arr[]) {
 		int i = 0;
 		inorderToArray_aux(getRoot(), arr, i);
 	}
 
-	template <typename T>
 	void inorderToArray_aux(BinaryTreeNode<T>* root, T* arr[], int& i) {
 		if (root == nullptr)
 			return;

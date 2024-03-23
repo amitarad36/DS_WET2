@@ -20,6 +20,8 @@ public:
 
 	int getStrength() const;
 
+	int getRank() const;
+
 	int getTimeStamp() const;
 
 	void setStrength(int strength);

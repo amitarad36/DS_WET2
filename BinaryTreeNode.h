@@ -9,6 +9,7 @@ private:
 
 	bool m_deletion_approval;
 	int m_height;
+	int m_subtree_max_ranked_team;
 	int m_subtree_size;
 	T* m_data;
 	BinaryTreeNode<T>* m_left;
@@ -16,7 +17,7 @@ private:
 
 public:
 
-	BinaryTreeNode(T* data) : m_data(data), m_height(0), m_subtree_size(0), m_left(nullptr), m_right(nullptr), m_deletion_approval(false) {}
+	BinaryTreeNode(T* data) : m_data(data), m_height(0), m_subtree_max_ranked_team(0), m_subtree_size(0), m_left(nullptr), m_right(nullptr), m_deletion_approval(false) {}
 
 	~BinaryTreeNode() {
 		if (m_deletion_approval) {
@@ -30,6 +31,14 @@ public:
 
 	void setHeight(const int height) {
 		m_height = height;
+	}
+
+	int getSubtreeMaxRankedTeam() const {
+		return m_subtree_max_ranked_team;
+	}
+
+	void setSubtreeMaxRankedTeam(int rank) {
+		m_subtree_max_ranked_team = rank;
 	}
 
 	int getSubtreeSize() const {

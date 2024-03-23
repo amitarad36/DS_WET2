@@ -25,6 +25,8 @@ public:
 
 	int getTeamID() const;
 
+	int getRank() const;
+
 	void setNumOfWins(int wins);
 
 	int getNumOfWins() const;

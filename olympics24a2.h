@@ -24,13 +24,13 @@
 
 class olympics_t {
 
-private:
-	
-	
+private: //make fields private!!!!!!
 public:
+    int m_num_of_teams;
+    BinaryTree<Team> * m_teams_tree;
+    HashObj<Team> * m_teams;
+	
 	// <DO-NOT-MODIFY> {
-    HashObj<Team> * m_teams; // return to private!!!!!!!!!!!
-
     olympics_t();
 
 	virtual ~olympics_t();
