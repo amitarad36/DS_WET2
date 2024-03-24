@@ -15,7 +15,6 @@ int Team::getRank() const {
 	return m_team_strength + m_num_of_wins;
 }
 
-
 void Team::setNumOfWins(int wins) {
 	m_num_of_wins = wins;
 }
@@ -40,6 +39,13 @@ Stack<Contestant*>* Team::getContestantsStack() const{
 	return m_contestants_strength_stack;
 }
 
+int Team::lessThanByStrengthAndId(Team* other) {
+	if (this->getTeamStrength() == other->getTeamStrength()) {
+		return this->getTeamID() - other->getTeamID(); // Compare IDs
+	}
+	return other->getTeamStrength() - this->getTeamStrength(); // Compare strengths
+}
+
 bool Team::operator<(const Team& c) const {
 	return (getTeamID() < c.getTeamID());
 }
@@ -52,8 +58,7 @@ bool Team::operator==(const Team& c) const {
 	return (getTeamID() == c.getTeamID());
 }
 
-
 std::ostream& operator<<(std::ostream& os, const Team& obj) {
-	os << obj.getTeamID();
+	os << obj.getTeamStrength() << "-" << obj.getTeamID();
 	return os;
 }

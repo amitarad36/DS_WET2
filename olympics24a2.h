@@ -19,17 +19,17 @@
 #include "wet2util.h"
 #include "HashObj.h"
 #include "BinaryTree.h"
-//#include "Team.h"
+#include "Team.h"
 
 
 class olympics_t {
 
 private: //make fields private!!!!!!
-public:
     int m_num_of_teams;
     BinaryTree<Team> * m_teams_tree;
     HashObj<Team> * m_teams;
 	
+public:
 	// <DO-NOT-MODIFY> {
     olympics_t();
 

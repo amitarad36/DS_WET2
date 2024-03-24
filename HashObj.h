@@ -63,7 +63,7 @@ public:
 
     StatusType resize(bool to_enlarge) {
         bool execute = false;
-        if (to_enlarge) {
+        if (to_enlarge) {   
             if (getLoadFactor() >= UPPER_LOAD_FACTOR_LIMIT)
                 execute = true;
         }

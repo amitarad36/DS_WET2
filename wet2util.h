@@ -25,6 +25,7 @@ enum struct StatusType {
 	FAILURE          = 3,
 };
 
+
 // output_t<T>
 // The following class is used to support output with status code.
 template<typename T>

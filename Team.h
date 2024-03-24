@@ -34,12 +34,14 @@ public:
 
 	int getMeanStrength() const {
 		BinaryTreeNode<Contestant>* mean_contestant_node = m_contestants_tree->getElementByRank((m_contestants_tree->getTreeSize()/2) + 1);
-		return mean_contestant_node->getData()->getStrength();
+		return mean_contestant_node != nullptr? mean_contestant_node->getData()->getStrength() : 0;
 	}
 
 	BinaryTree<Contestant>* getContestants() const;
 
 	Stack<Contestant*>* getContestantsStack() const;
+
+	int lessThanByStrengthAndId(Team* other);
 
 	bool operator<(const Team& t) const;
 
