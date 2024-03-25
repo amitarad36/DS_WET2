@@ -62,4 +62,9 @@ static BinaryTree<Contestant>* buildTeamTreeFromArrayCont(Contestant** merged_ar
 
 static BinaryTreeNode<Contestant>* buildTeamTreeFromArrayCont_aux(Contestant** merged_arr, int start, int end);
 
+static Team* findMinTeam(BinaryTreeNode<Team>* root, int x);
+
+static Team* findMaxTeam(BinaryTreeNode<Team>* root, int x);
+
+
 #endif // OLYMPICSA2_H_

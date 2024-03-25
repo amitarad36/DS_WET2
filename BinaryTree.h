@@ -277,6 +277,7 @@ public:
 	BinaryTreeNode<T>* insertByStrengthAndId_aux(BinaryTreeNode<T>* root, BinaryTreeNode<T>* new_node) {
 		if (root == nullptr) {
 			root = new_node;
+			root->setSubtreeSize(1);
 			root->setSubtreeMaxRankedTeam(new_node->getData()->getRank());
 			if (first_insertion) {
 				setRoot(root);
@@ -294,7 +295,8 @@ public:
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
-
+		
+		updateSubtreeSize(root);
 		updateSubtreeMaxRankedTeam(root);
 
 		int bf = getBalanceFactor(root);
@@ -375,6 +377,7 @@ public:
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 
+		updateSubtreeSize(root);
 		updateSubtreeMaxRankedTeam(root);
 
 		int bf = getBalanceFactor(root);
