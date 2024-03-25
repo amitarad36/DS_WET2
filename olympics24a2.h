@@ -25,11 +25,11 @@
 class olympics_t {
 
 private: //make fields private!!!!!!
+public:
     int m_num_of_teams;
     BinaryTree<Team> * m_teams_tree;
     HashObj<Team> * m_teams;
 	
-public:
 	// <DO-NOT-MODIFY> {
     olympics_t();
 
@@ -55,5 +55,11 @@ public:
 	
 	// } </DO-NOT-MODIFY>
 };
+
+static Contestant** mergeSortedArrays(Contestant** arr1, int size1, Contestant** arr2, int size2);
+
+static BinaryTree<Contestant>* buildTeamTreeFromArrayCont(Contestant** merged_arr, int size);
+
+static BinaryTreeNode<Contestant>* buildTeamTreeFromArrayCont_aux(Contestant** merged_arr, int start, int end);
 
 #endif // OLYMPICSA2_H_

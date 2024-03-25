@@ -81,7 +81,7 @@ public:
 
             else {
                 old_hash_table_size = m_hash_table_size;
-                setHashTableSize(std::max(m_hash_table_size / 2, HASH_TABLE_DEFAULT_SIZE));
+                setHashTableSize(max(m_hash_table_size / 2, HASH_TABLE_DEFAULT_SIZE));
             }
 
             // Constructing the new array
@@ -89,7 +89,8 @@ public:
             if (new_data == nullptr) return StatusType::ALLOCATION_ERROR;
             for (int i = 0; i < m_hash_table_size; i++) {
                 new_data[i] = new BinaryTree<T>();
-                if (new_data[i] == nullptr) return StatusType::ALLOCATION_ERROR;
+                if (new_data[i] == nullptr) 
+                    return StatusType::ALLOCATION_ERROR;
             }
 
             int index, key;

@@ -15,6 +15,8 @@ public:
 
 	Contestant(int strength);
 
+	Contestant(int strength, int contestant_time_stamp);
+
 	virtual ~Contestant();
 
 	int getStrength() const;

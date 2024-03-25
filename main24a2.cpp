@@ -18,131 +18,168 @@
 using namespace std;
 
 //int main() {
-//    // Create an instance of the olympics_t class
-//    olympics_t olympics;
+//	// Create an instance of the olympics_t class
+//	olympics_t olympics;
 //
-//    int choice = 0;
-//    while (choice != 8) {
-//        std::cout << "Choose the function to invoke:" << std::endl;
-//        std::cout << "1. Add Team" << std::endl;
-//        std::cout << "2. Remove Team" << std::endl;
-//        std::cout << "3. Add Player" << std::endl;
-//        std::cout << "4. Remove Newest Player" << std::endl;
-//        std::cout << "5. Play Match" << std::endl;
-//        std::cout << "6. Number of Wins for Team" << std::endl;
-//        std::cout << "7. Get Highest Ranked Team" << std::endl;
-//        std::cout << "8. Finish" << std::endl;
-//        std::cout << "Enter your choice: ";
-//        std::cin >> choice;
+//	int choice = 0;
+//	while (choice != 10) {
+//		std::cout << "Choose the function to invoke:" << std::endl;
+//		std::cout << "1. Add Team" << std::endl;
+//		std::cout << "2. Remove Team" << std::endl;
+//		std::cout << "3. Add Player" << std::endl;
+//		std::cout << "4. Remove Newest Player" << std::endl;
+//		std::cout << "5. Play Match" << std::endl;
+//		std::cout << "6. Number of Wins for Team" << std::endl;
+//		std::cout << "7. Get Highest Ranked Team" << std::endl;
+//		std::cout << "8. Unite Teams" << std::endl;
+//		std::cout << "9. Play Tournament" << std::endl;
+//		std::cout << "10. Finish" << std::endl;
+//		std::cout << "Enter your choice: ";
+//		std::cin >> choice;
 //
-//        switch (choice) {
-//        case 1: {
-//            int team_id;
-//            std::cout << "Enter team ID: ";
-//            std::cin >> team_id;
-//            StatusType add_team_status = olympics.add_team(team_id);
-//            if (add_team_status == StatusType::SUCCESS) {
-//                std::cout << "Team " << team_id << " added successfully." << std::endl;
-//                olympics.m_teams_tree->printTree();
-//            }
-//            else {
-//                std::cout << "Failed to add team " << team_id << "." << std::endl;
-//            }
-//            break;
-//        }
-//        case 2: {
-//            int team_id;
-//            std::cout << "Enter team ID to remove: ";
-//            std::cin >> team_id;
-//            StatusType remove_team_status = olympics.remove_team(team_id);
-//            if (remove_team_status == StatusType::SUCCESS) {
-//                std::cout << "Team " << team_id << " removed successfully." << std::endl;
-//                olympics.m_teams_tree->printTree();
-//            }
-//            else {
-//                std::cout << "Failed to remove team " << team_id << "." << std::endl;
-//            }
-//            break;
-//        }
-//        case 3: {
-//            int team_id, player_strength;
-//            std::cout << "Enter team ID to add player to: ";
-//            std::cin >> team_id;
-//            std::cout << "Enter player strength: ";
-//            std::cin >> player_strength;
-//            StatusType add_player_status = olympics.add_player(team_id, player_strength);
-//            if (add_player_status == StatusType::SUCCESS) {
-//                std::cout << "Player added to team " << team_id << " successfully." << std::endl;
-//                olympics.m_teams_tree->printTree();
-//            }
-//            else {
-//                std::cout << "Failed to add player to team " << team_id << "." << std::endl;
-//            }
-//            break;
-//        }
-//        case 4: {
-//            int team_id;
-//            std::cout << "Enter team ID to remove the newest player from: ";
-//            std::cin >> team_id;
-//            StatusType remove_player_status = olympics.remove_newest_player(team_id);
-//            if (remove_player_status == StatusType::SUCCESS) {
-//                std::cout << "Newest player removed from team " << team_id << " successfully." << std::endl;
-//                olympics.m_teams_tree->printTree();
-//            }
-//            else {
-//                std::cout << "Failed to remove newest player from team " << team_id << "." << std::endl;
-//            }
-//            break;
-//        }
-//        case 5: {
-//            int team_id1, team_id2;
-//            std::cout << "Enter team ID 1: ";
-//            std::cin >> team_id1;
-//            std::cout << "Enter team ID 2: ";
-//            std::cin >> team_id2;
-//            output_t<int> match_result = olympics.play_match(team_id1, team_id2);
-//            if (match_result.status() == StatusType::SUCCESS) {
-//                std::cout << "Match played successfully:" << std::endl;
-//                olympics.m_teams_tree->printTree();
-//            }
-//            else {
-//                std::cout << "Failed to play the match." << std::endl;
-//            }
-//            break;
-//        }
-//        case 6: {
-//            int team_id;
-//            std::cout << "Enter team ID: ";
-//            std::cin >> team_id;
-//            output_t<int> num_wins = olympics.num_wins_for_team(team_id);
-//            if (num_wins.status() == StatusType::SUCCESS) {
-//                std::cout << "Number of wins for team " << team_id << ": " << num_wins.ans() << std::endl;
-//            }
-//            else {
-//                std::cout << "Failed to get number of wins for team " << team_id << "." << std::endl;
-//            }
-//            break;
-//        }
-//        case 7: {
-//            output_t<int> highest_ranked_team = olympics.get_highest_ranked_team();
-//            if (highest_ranked_team.status() == StatusType::SUCCESS) {
-//                std::cout << "Highest ranked team: " << highest_ranked_team.ans() << std::endl;
-//            }
-//            else {
-//                std::cout << "Failed to get highest ranked team." << std::endl;
-//            }
-//            break;
-//        }
-//        case 8: {
-//            std::cout << "Exiting the program." << std::endl;
-//            break;
-//        }
-//        default:
-//            std::cout << "Invalid choice. Please try again." << std::endl;
-//        }
-//    }
+//		switch (choice) {
+//		case 1: {
+//			// Add Team
+//			int team_id;
+//			std::cout << "Enter team ID: ";
+//			std::cin >> team_id;
+//			StatusType add_team_status = olympics.add_team(team_id);
+//			if (add_team_status == StatusType::SUCCESS) {
+//				std::cout << "Team " << team_id << " added successfully." << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to add team " << team_id << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 2: {
+//			// Remove Team
+//			int team_id;
+//			std::cout << "Enter team ID to remove: ";
+//			std::cin >> team_id;
+//			StatusType remove_team_status = olympics.remove_team(team_id);
+//			if (remove_team_status == StatusType::SUCCESS) {
+//				std::cout << "Team " << team_id << " removed successfully." << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to remove team " << team_id << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 3: {
+//			// Add Player
+//			int team_id, player_strength;
+//			std::cout << "Enter team ID to add player to: ";
+//			std::cin >> team_id;
+//			std::cout << "Enter player strength: ";
+//			std::cin >> player_strength;
+//			StatusType add_player_status = olympics.add_player(team_id, player_strength);
+//			if (add_player_status == StatusType::SUCCESS) {
+//				std::cout << "Player added to team " << team_id << " successfully." << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to add player to team " << team_id << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 4: {
+//			// Remove Newest Player
+//			int team_id;
+//			std::cout << "Enter team ID to remove the newest player from: ";
+//			std::cin >> team_id;
+//			StatusType remove_player_status = olympics.remove_newest_player(team_id);
+//			if (remove_player_status == StatusType::SUCCESS) {
+//				std::cout << "Newest player removed from team " << team_id << " successfully." << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to remove newest player from team " << team_id << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 5: {
+//			// Play Match
+//			int team_id1, team_id2;
+//			std::cout << "Enter team ID 1: ";
+//			std::cin >> team_id1;
+//			std::cout << "Enter team ID 2: ";
+//			std::cin >> team_id2;
+//			output_t<int> match_result = olympics.play_match(team_id1, team_id2);
+//			if (match_result.status() == StatusType::SUCCESS) {
+//				std::cout << "Match played successfully:" << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to play the match." << std::endl;
+//			}
+//			break;
+//		}
+//		case 6: {
+//			// Number of Wins for Team
+//			int team_id;
+//			std::cout << "Enter team ID: ";
+//			std::cin >> team_id;
+//			output_t<int> num_wins = olympics.num_wins_for_team(team_id);
+//			if (num_wins.status() == StatusType::SUCCESS) {
+//				std::cout << "Number of wins for team " << team_id << ": " << num_wins.ans()
+//					<< std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to get number of wins for team " << team_id << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 7: {
+//			// Get Highest Ranked Team
+//			output_t<int> highest_ranked_team = olympics.get_highest_ranked_team();
+//			if (highest_ranked_team.status() == StatusType::SUCCESS) {
+//				std::cout << "Highest ranked team: " << highest_ranked_team.ans() << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to get highest ranked team." << std::endl;
+//			}
+//			break;
+//		}
+//		case 8: {
+//			// Unite Teams
+//			int team_id1, team_id2;
+//			std::cout << "Enter team ID 1: ";
+//			std::cin >> team_id1;
+//			std::cout << "Enter team ID 2: ";
+//			std::cin >> team_id2;
+//			StatusType unite_status = olympics.unite_teams(team_id1, team_id2);
+//			if (unite_status == StatusType::SUCCESS) {
+//				std::cout << "Teams " << team_id1 << " and " << team_id2 << " united successfully." << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to unite teams " << team_id1 << " and " << team_id2 << "." << std::endl;
+//			}
+//			break;
+//		}
+//		case 9: {
+//			// Play Tournament
+//			int low_power, high_power;
+//			std::cout << "Enter low power: ";
+//			std::cin >> low_power;
+//			std::cout << "Enter high power: ";
+//			std::cin >> high_power;
+//			output_t<int> tournament_result = olympics.play_tournament(low_power, high_power);
+//			if (tournament_result.status() == StatusType::SUCCESS) {
+//				std::cout << "Tournament played successfully:" << std::endl;
+//			}
+//			else {
+//				std::cout << "Failed to play the tournament." << std::endl;
+//			}
+//			break;
+//		}
+//		case 10: {
+//			std::cout << "Exiting the program." << std::endl;
+//			break;
+//		}
+//		default:
+//			std::cout << "Invalid choice. Please try again." << std::endl;
+//		}
+//	}
 //
-//    return 0;
+//	return 0;
 //}
 
 

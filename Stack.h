@@ -1,18 +1,45 @@
 #include <iostream>
 
-template<typename T>
 class Node {
-public:
-    T data;
-    Node<T>* next;
+private:
+    int contestant_strength;
+    int contestant_time_stamp;
+    Node* next;
 
-    Node(const T& newData) : data(newData), next(nullptr) {}
+public:
+    Node(int strength, int time_stamp) : contestant_strength(strength), contestant_time_stamp(time_stamp), next(nullptr) {}
+
+    virtual ~Node() {}
+
+    int getContestantStrength() const {
+        return contestant_strength;
+    }
+
+    void setContestantStrength(int strength) {
+        contestant_strength = strength;
+    }
+
+    int getContestantTimeStamp() const {
+        return contestant_time_stamp;
+    }
+
+    void setContestantTimeStamp(int time_stamp) {
+        contestant_time_stamp = time_stamp;
+    }
+
+    Node* getNext() const {
+        return next;
+    }
+
+    void setNext(Node* next_node) {
+        next = next_node;
+    }
 };
 
-template<typename T>
+
 class Stack {
 private:
-    Node<T>* topNode;
+    Node* topNode;
 
 public:
     Stack() : topNode(nullptr) {}
@@ -23,36 +50,45 @@ public:
         }
     }
 
-    void push(const T& data) {
-        Node<T>* newNode = new Node<T>(data);
-        newNode->next = topNode;
+    void push(int strength, int time_stamp) {
+        Node* newNode = new Node(strength, time_stamp);
+        newNode->setNext(topNode);
         topNode = newNode;
     }
 
     void pop() {
         if (!empty()) {
-            Node<T>* temp = topNode;
-            topNode = topNode->next;
+            Node* temp = topNode;
+            topNode = topNode->getNext();
             delete temp;
         }
     }
 
-    const T& top() const {
-        if (!empty()) {
-            return topNode->data;
-        }
+    Node* top() const {
+        return topNode;
     }
 
     bool empty() const {
         return topNode == nullptr;
     }
 
+    Stack* flipStack() const {
+        Stack* flipped = new Stack();
+        Node* current = topNode;
+        while (current != nullptr) {
+            flipped->push(current->getContestantStrength(), current->getContestantTimeStamp());
+            current = current->getNext();
+        }
+        return flipped;
+    }
+
+
     int size() const {
         int count = 0;
-        Node<T>* current = topNode;
+        Node* current = topNode;
         while (current != nullptr) {
             count++;
-            current = current->next;
+            current = current->getNext();
         }
         return count;
     }
@@ -63,10 +99,10 @@ public:
             return;
         }
         std::cout << "Stack (top to bottom): ";
-        Node<T>* current = topNode;
+        Node* current = topNode;
         while (current != nullptr) {
-            std::cout << *(current->data) << " ";
-            current = current->next;
+            std::cout << "(" << current->getContestantStrength() << ", " << current->getContestantTimeStamp() << ") ";
+            current = current->getNext();
         }
         std::cout << std::endl;
     }

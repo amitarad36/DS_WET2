@@ -8,6 +8,9 @@ Contestant::Contestant(int strength) : m_strength(strength) {
 	numContestants++;
 }
 
+Contestant::Contestant(int strength, int contestant_time_stamp) : m_strength(strength), m_contestant_time_stamp(contestant_time_stamp) {}
+
+
 Contestant::~Contestant() {}
 
 int Contestant::getStrength() const {

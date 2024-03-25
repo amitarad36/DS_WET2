@@ -24,6 +24,10 @@ public:
 
 	BinaryTree() : m_root(nullptr), m_tree_size(0) {}
 
+	virtual ~BinaryTree() {
+		postorderDelete();
+	}
+
 	bool isEmpty() {
 		return (m_root == nullptr);
 	}
@@ -79,9 +83,8 @@ public:
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
 
 		// Update subtree max ranked team
-		imbalanced_node->setSubtreeMaxRankedTeam(max(imbalanced_node->getRight() != nullptr ? imbalanced_node->getRight()->getSubtreeMaxRankedTeam() : 0,
-			imbalanced_node->getData()->getRank()));
-		x->setSubtreeMaxRankedTeam(max(imbalanced_node->getSubtreeMaxRankedTeam(), x->getRight() != nullptr ? x->getRight()->getSubtreeMaxRankedTeam() : 0));
+		updateSubtreeMaxRankedTeam(imbalanced_node);
+		updateSubtreeMaxRankedTeam(x);
 
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
@@ -103,9 +106,8 @@ public:
 		x->setHeight(max(height(x->getLeft()), height(x->getRight())) + 1);
 
 		// Update subtree max ranked team
-		imbalanced_node->setSubtreeMaxRankedTeam(max(imbalanced_node->getLeft() != nullptr ? imbalanced_node->getLeft()->getSubtreeMaxRankedTeam() : 0,
-			imbalanced_node->getData()->getRank()));
-		x->setSubtreeMaxRankedTeam(max(imbalanced_node->getSubtreeMaxRankedTeam(), x->getLeft() != nullptr ? x->getLeft()->getSubtreeMaxRankedTeam() : 0));
+		updateSubtreeMaxRankedTeam(imbalanced_node);
+		updateSubtreeMaxRankedTeam(x);
 
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
@@ -462,16 +464,11 @@ public:
 			(node->getRight() != nullptr ? node->getRight()->getSubtreeSize() : 0));
 	}
 
-	void updateSubtreeMaxRankedTeam(BinaryTreeNode<T>* root) {
-		if (root == nullptr) return;
-
-		int rank = root->getData()->getRank();
-
-		int left_rank = (root->getLeft() != nullptr) ? root->getLeft()->getSubtreeMaxRankedTeam() : MIN_RANK;
-
-		int right_rank = (root->getRight() != nullptr) ? root->getRight()->getSubtreeMaxRankedTeam() : MIN_RANK;
-
-		root->setSubtreeMaxRankedTeam(max(rank, max(left_rank, right_rank)));
+	void updateSubtreeMaxRankedTeam(BinaryTreeNode<T>* node) {
+		if (node == nullptr) return;
+		node->setSubtreeMaxRankedTeam(max(node->getData()->getRank(),
+			max((node->getLeft() != nullptr ? node->getLeft()->getSubtreeMaxRankedTeam() : MIN_RANK),
+				(node->getRight() != nullptr ? node->getRight()->getSubtreeMaxRankedTeam() : MIN_RANK))));
 	}
 
 	void postorderDelete(bool delete_data = false) {
