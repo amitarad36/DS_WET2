@@ -1,4 +1,6 @@
-﻿  olympics24a2.cpp
+﻿  Team.cpp
+  main24a2.cpp
+  olympics24a2.cpp
 C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(40,42): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'olympics24a2.cpp')
   C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(40,42):
@@ -48,4 +50,5 @@ C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(206,34): warning C4101: 'e'
 C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(217,34): warning C4101: 'e': unreferenced local variable
   (compiling source file 'olympics24a2.cpp')
   
+  Generating Code...
   olympicsProject2.vcxproj -> C:\DS_Projects\DS_WET2\olympicsProject2\x64\Debug\olympicsProject2.exe

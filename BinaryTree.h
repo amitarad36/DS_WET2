@@ -523,6 +523,26 @@ public:
 		inorderToArray_aux(root->getRight(), arr, i);
 	}
 
+	int getRankByTeam(T* target) {
+		return getRankByTeam_aux(m_root, target) + 1;
+	}
+
+	int getRankByTeam_aux(BinaryTreeNode<T>* root, T* target) {
+		if (root == nullptr)
+			return 0;
+
+		//search left
+		if (target->lessThanByStrengthAndId(root->getData()) > 0)
+			return getRankByTeam_aux(root->getLeft(), target);
+
+		//search right
+		if (target->lessThanByStrengthAndId(root->getData()) < 0) {
+			int add = 1 + (root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0);
+			return getRankByTeam_aux(root->getRight(), target) + add;
+		}
+
+		return root->getLeft() != nullptr ? root->getLeft()->getSubtreeSize() : 0;
+	}
 };
 
 

@@ -66,5 +66,8 @@ static Team* findMinTeam(BinaryTreeNode<Team>* root, int x);
 
 static Team* findMaxTeam(BinaryTreeNode<Team>* root, int x);
 
+static Team* findMinTeam_aux(BinaryTreeNode<Team>* root, int x, Team* candidate);
+
+static Team* findMaxTeam_aux(BinaryTreeNode<Team>* root, int x, Team* candidate);
 
 #endif // OLYMPICSA2_H_
