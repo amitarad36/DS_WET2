@@ -10,7 +10,7 @@ private:
 
 	int m_id;
 	int m_team_strength;
-	int m_num_of_wins;
+	bool was_in_teams_tree;
 	BinaryTree<Contestant> * m_contestants_tree;
 	Stack * m_contestants_strength_stack;
 
@@ -22,24 +22,19 @@ public:
 
 	int getTeamID() const;
 
-	int getRank() const;
+	void setWasInTeamsTree(bool was);
 
-	void setNumOfWins(int wins);
+	bool getWasInTeamsTree() const;
 
-	int getNumOfWins() const;
+	void setStrength(int strength);
 
-	void setTeamStrength(int strength);
-
-	int getTeamStrength() const;
+	int getStrength() const;
 
 	void setContestants(BinaryTree<Contestant>* contestants_tree);
 
-	int getMeanStrength() const {
-		BinaryTreeNode<Contestant>* mean_contestant_node = m_contestants_tree->getElementByRank((m_contestants_tree->getTreeSize()/2) + 1);
-		return mean_contestant_node != nullptr? mean_contestant_node->getData()->getStrength() : 0;
-	}
-
 	BinaryTree<Contestant>* getContestants() const;
+	
+	int getMeanStrength() const;
 
 	Stack* getContestantsStack() const;
 

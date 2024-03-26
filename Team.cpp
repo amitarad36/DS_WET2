@@ -1,6 +1,6 @@
 #include "Team.h"
 
-Team::Team(int team_id) : m_id(team_id), m_num_of_wins(0), m_team_strength(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_strength_stack(new Stack()) {}
+Team::Team(int team_id) : m_id(team_id), was_in_teams_tree(false), m_team_strength(0), m_contestants_tree(new BinaryTree<Contestant>()), m_contestants_strength_stack(new Stack()) {}
 
 Team::~Team() {
 	m_contestants_tree->postorderDelete(true);
@@ -11,23 +11,19 @@ int Team::getTeamID() const {
 	return m_id;
 }
 
-int Team::getRank() const {
-	return m_team_strength + m_num_of_wins;
+void Team::setWasInTeamsTree(bool was) {
+	was_in_teams_tree = was;
 }
 
-void Team::setNumOfWins(int wins) {
-	m_num_of_wins = wins;
+bool Team::getWasInTeamsTree() const {
+	return was_in_teams_tree;
 }
 
-int Team::getNumOfWins() const {
-	return m_num_of_wins;
-}
-
-void Team::setTeamStrength(int strength) {
+void Team::setStrength(int strength) {
 	m_team_strength = strength;
 }
 
-int Team::getTeamStrength() const {
+int Team::getStrength() const {
 	return m_team_strength;
 }
 
@@ -39,15 +35,20 @@ BinaryTree<Contestant>* Team::getContestants() const {
 	return m_contestants_tree;
 }
 
+int Team::getMeanStrength() const {
+	BinaryTreeNode<Contestant>* mean_contestant_node = m_contestants_tree->getElementByRank((m_contestants_tree->getTreeSize() / 2) + 1);
+	return mean_contestant_node != nullptr ? mean_contestant_node->getData()->getStrength() : 0;
+}
+
 Stack* Team::getContestantsStack() const{
 	return m_contestants_strength_stack;
 }
 
 int Team::lessThanByStrengthAndId(Team* other) {
-	if (this->getTeamStrength() == other->getTeamStrength()) {
+	if (this->getStrength() == other->getStrength()) {
 		return this->getTeamID() - other->getTeamID(); // Compare IDs
 	}
-	return other->getTeamStrength() - this->getTeamStrength(); // Compare strengths
+	return other->getStrength() - this->getStrength(); // Compare strengths
 }
 
 bool Team::operator<(const Team& c) const {
@@ -63,6 +64,6 @@ bool Team::operator==(const Team& c) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Team& obj) {
-	os << obj.getTeamStrength() << "-" << obj.getTeamID();
+	os << obj.getStrength() << "-" << obj.getTeamID();
 	return os;
 }

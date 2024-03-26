@@ -21,11 +21,13 @@ public:
 
 	int getStrength() const;
 
-	int getRank() const;
-
 	int getTimeStamp() const;
 
+	bool getWasInTeamsTree();
+
 	void setStrength(int strength);
+
+	int lessThanByStrengthAndId(Contestant* other);
 
 	bool operator<(const Contestant& c) const;
 
