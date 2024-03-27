@@ -75,7 +75,6 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 	if (playerStrength <= 0 || teamId <= 0) {
 		return StatusType::INVALID_INPUT;
 	}
-
 	int team_index = m_teams->getIndexOfKey(teamId);
 	Team* team_dup = new Team(teamId);
 	if (team_dup == nullptr) {
@@ -87,13 +86,15 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 		delete team_dup;
 		return StatusType::FAILURE;
 	}
-	Team* team = team_node->getData();
-	Contestant* new_contestant = new Contestant(playerStrength);
+	Team * team = team_node->getData();
+	Contestant * new_contestant = new Contestant(playerStrength);
 	if (new_contestant == nullptr) {
 		return StatusType::ALLOCATION_ERROR;
 		delete team_dup;
 	}
-
+	int rank = m_teams_tree->getRankByTeam(team);
+	int num_of_wins = m_teams_tree->teamNumOfWins(team);
+	
 	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
 
 	if (team->getContestants()->insert(new_contestant) == StatusType::ALLOCATION_ERROR) {
@@ -103,6 +104,10 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 	team->getContestantsStack()->push(new_contestant->getStrength(), new_contestant->getTimeStamp());
 	team->setStrength(team->getMeanStrength() * team->getContestants()->getTreeSize());
 	m_teams_tree->insertByStrengthAndId(team);
+	if (rank > 0 && num_of_wins > 0) {
+		m_teams_tree->addWinToTeams(rank, num_of_wins);
+		if(rank > 1) m_teams_tree->addWinToTeams(rank - 1, -num_of_wins);
+	}
 	team->setWasInTeamsTree(true);
 	delete team_dup;
 	return StatusType::SUCCESS;
@@ -125,6 +130,7 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 
 	Team* team = team_node->getData();
+	int num_of_wins = m_teams_tree->teamNumOfWins(team);
 	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
 	int contestant_strength = team->getContestantsStack()->top()->getContestantStrength();
 	int contestant_time_stamp = team->getContestantsStack()->top()->getContestantTimeStamp();
@@ -138,9 +144,15 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 	team->setStrength(team->getMeanStrength() * team->getContestants()->getTreeSize());
 	m_teams_tree->insertByStrengthAndId(team);
+	int rank = m_teams_tree->getRankByTeam(team);
 	team->setWasInTeamsTree(true);
+	if (rank > 0 && num_of_wins > 0) {
+		m_teams_tree->addWinToTeams(rank, num_of_wins);
+		if (rank > 1) m_teams_tree->addWinToTeams(rank - 1, -num_of_wins);
+	}
 	delete contestant_to_remove_dup;
 	delete team_dup;
+
 	return return_val;
 }
 
@@ -185,7 +197,7 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 	int rank_team2 = m_teams_tree->getRankByTeam(team2);
 
 	if (team1_strength > team2_strength) {
-		m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1); // add win
+		m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
 		return output_t<int>(teamId1);
 	}
 	else if (team1_strength < team2_strength) {
@@ -318,7 +330,6 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 
 output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 
-	m_teams_tree->printTree();
 
 	if (highPower <= 0 || lowPower <= 0 || highPower <= lowPower) {
 		return output_t<int>(StatusType::INVALID_INPUT);

@@ -40,8 +40,7 @@ public:
 		m_root = new_root;
 	}
 
-	BinaryTreeNode<T>* minNode(BinaryTreeNode<T>* node)
-	{
+	BinaryTreeNode<T>* minNode(BinaryTreeNode<T>* node) {
 		BinaryTreeNode<T>* current = node;
 		while (current->getLeft() != nullptr)
 			current = current->getLeft();
@@ -69,8 +68,7 @@ public:
 		return(height(node->getLeft()) - height(node->getRight()));
 	}
 
-	BinaryTreeNode<T>* rightRotation(BinaryTreeNode<T>* imbalanced_node)
-	{
+	BinaryTreeNode<T>* rightRotation(BinaryTreeNode<T>* imbalanced_node) {
 		BinaryTreeNode<T>* x = imbalanced_node->getLeft();
 		BinaryTreeNode<T>* T2 = x->getRight();
 
@@ -88,9 +86,16 @@ public:
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
 
-		x->setExtraWins(x->getExtraWins() + imbalanced_node->getExtraWins());
-		imbalanced_node->setExtraWins(imbalanced_node->getExtraWins() - x->getExtraWins());
+		int imbalanced_extra_wins = imbalanced_node->getExtraWins();
+		int x_extra_wins = x->getExtraWins();
+		int right_extra_wins = 0;
+		if (T2 != nullptr)
+			right_extra_wins = T2->getExtraWins();
 
+		imbalanced_node->setExtraWins(-x_extra_wins);
+		x->setExtraWins(x_extra_wins + imbalanced_extra_wins);
+		if (T2 != nullptr)
+			T2->setExtraWins(right_extra_wins + x_extra_wins);
 
 		return x;
 	}
@@ -113,9 +118,17 @@ public:
 
 		updateSubtreeSize(imbalanced_node);
 		updateSubtreeSize(x);
-		x->setExtraWins(x->getExtraWins() + imbalanced_node->getExtraWins());
-		imbalanced_node->setExtraWins(imbalanced_node->getExtraWins() - x->getExtraWins());
 
+		int imbalanced_extra_wins = imbalanced_node->getExtraWins();
+		int x_extra_wins = x->getExtraWins();
+		int left_extra_wins = 0;
+		if (T2 != nullptr)
+			left_extra_wins = T2->getExtraWins();
+
+		imbalanced_node->setExtraWins(-x_extra_wins);
+		x->setExtraWins(x_extra_wins + imbalanced_extra_wins);
+		if (T2 != nullptr)
+			T2->setExtraWins(left_extra_wins + x_extra_wins);
 
 		return x;
 	}
@@ -284,7 +297,8 @@ public:
 		if (root == nullptr) {
 			root = new_node;
 			root->setSubtreeSize(1);
-			root->setSubtreeMaxRankedTeam(new_node->getData()->getStrength() + teamNumOfWins(new_node->getData()));
+			new_node->setExtraWins(-calculatePathExtraWins(new_node, m_root));
+			root->setSubtreeMaxRankedTeam(new_node->getData()->getStrength());
 			if (first_insertion) {
 				setRoot(root);
 				first_insertion = false;
@@ -295,8 +309,7 @@ public:
 		if (new_node->getData()->lessThanByStrengthAndId(root->getData()) > 0) {
 			root->setLeft(insertByStrengthAndId_aux(root->getLeft(), new_node));
 		}
-		else if (new_node->getData()->lessThanByStrengthAndId(root->getData()) < 0)
-		{
+		else if (new_node->getData()->lessThanByStrengthAndId(root->getData()) < 0) {
 			root->setRight(insertByStrengthAndId_aux(root->getRight(), new_node));
 		}
 
@@ -341,7 +354,7 @@ public:
 		setRoot(removeByStrengthAndId_aux(m_root, data));
 		m_tree_size--;
 		return StatusType::SUCCESS;
-		}
+	}
 
 	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
 		if (root == nullptr)
@@ -351,22 +364,25 @@ public:
 			root->setLeft(removeByStrengthAndId_aux(root->getLeft(), data));
 		else if (data->lessThanByStrengthAndId(root->getData()) < 0) //search right
 			root->setRight(removeByStrengthAndId_aux(root->getRight(), data));
-		else // found the node with the id
-		{
-			if (root->getLeft() == nullptr) // no children or only right child
-			{
+		else { // found the node with the id
+			int extraWins = root->getExtraWins();
+			if (root->getLeft() == nullptr) { // no children or only right child 
 				BinaryTreeNode<T>* temp = root->getRight();
+				if(temp != nullptr)
+					temp->setExtraWins(temp->getExtraWins() + extraWins);
 				try {
 					delete root;
 				}
 				catch (const std::bad_alloc& e) {
 					throw;
-				}
+				}		
 				return temp;
 			}
-			else if (root->getRight() == nullptr)
-			{
+			else if (root->getRight() == nullptr) {  // only left child
 				BinaryTreeNode<T>* temp = root->getLeft();
+				if (temp != nullptr) {
+					temp->setExtraWins(temp->getExtraWins() + extraWins);
+				}
 				try {
 					delete root;
 				}
@@ -375,10 +391,25 @@ public:
 				}
 				return temp;
 			}
-			// Node with two children
+		    // Node with two children
 			BinaryTreeNode<T>* temp = minNode(root->getRight());
+			BinaryTreeNode<T>* temp_right = temp->getRight();
 			root->setData(temp->getData());
+
+			int path_sum = calculatePathExtraWins(temp, root);
+			int extra_left = root->getLeft()->getExtraWins();
+			int extra_right = root->getRight()->getExtraWins();
+			int extra_min_node = temp->getExtraWins();
+			int extra_right_of_min = temp_right == nullptr ? 0 : temp_right->getExtraWins();
+
 			root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
+			root->setExtraWins(path_sum);
+			if (root->getRight() != nullptr)
+				root->getRight()->setExtraWins(extraWins - path_sum + extra_right);
+			root->getLeft()->setExtraWins(extraWins - path_sum + extra_left);
+			if (temp_right != nullptr)
+				temp_right->setExtraWins(path_sum + extra_right_of_min);
+			
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
@@ -466,7 +497,7 @@ public:
 			return root;
 		return getMinNode_aux(root->getLeft());
 	}
-
+	
 	void updateSubtreeSize(BinaryTreeNode<T>* node) {
 		if (node == nullptr) return;
 		node->setSubtreeSize(1 + (node->getLeft() != nullptr ? node->getLeft()->getSubtreeSize() : 0) +
@@ -548,10 +579,10 @@ public:
 	}
 
 	void addWinToTeamsInRange(int low_rank, int high_rank) {
-		if (high_rank <= 0 || high_rank > getTreeSize() || low_rank <= 0 || low_rank > getTreeSize()) return;
+		if (high_rank == 0) return;
 		addWinToTeams(high_rank, 1);
+		if (low_rank == 1) return;
 		addWinToTeams(low_rank - 1, -1);
-		return;
 	}
 
 	void addWinToTeams(int rank, int x) {
@@ -564,7 +595,6 @@ public:
 		if (root == nullptr) {
 			return;
 		}
-
 		if (root->getData() == team) {
 			if (!*added) {
 				root->setExtraWins(root->getExtraWins() + x);
@@ -578,10 +608,15 @@ public:
 			return;
 		}
 
-		if (!*added && team->lessThanByStrengthAndId(root->getData()) < 0) {
-			root->setExtraWins(root->getExtraWins() + x);
-			*added = true;
-			addWinToTeams_aux(team, added, x, root->getRight());
+		if (team->lessThanByStrengthAndId(root->getData()) < 0) {
+			if (!*added) {
+				root->setExtraWins(root->getExtraWins() + x);
+				*added = true;
+				addWinToTeams_aux(team, added, x, root->getRight());
+			}
+			else {
+				addWinToTeams_aux(team, added, x, root->getRight());
+			}
 		}
 
 		if (team->lessThanByStrengthAndId(root->getData()) > 0) {
@@ -621,7 +656,22 @@ public:
 			teamNumOfWins_aux(root->getLeft(), target, sum_num_of_wins);
 		}
 	}
-	
+
+	int calculatePathExtraWins(BinaryTreeNode<T>* new_node, BinaryTreeNode<T>* root) {
+		int sum = 0;
+
+		if(root != nullptr) {
+			sum += root->getExtraWins();
+			if (root->getData()->lessThanByStrengthAndId(new_node->getData()) > 0) {
+				return sum + calculatePathExtraWins(new_node, root->getRight());
+			}
+			else {
+				return sum + calculatePathExtraWins(new_node, root->getLeft());
+			}
+		}
+		return sum;
+	}
+
 };
 
 
