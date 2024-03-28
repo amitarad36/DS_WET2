@@ -1,9 +1,10 @@
 #include "olympics24a2.h"
 
+#include <utility> // for std::pair
+
 #define MAX_TEAMS 1000
 
-static int last_wins = 0;
-static int team_wins[MAX_TEAMS] = { 0 }; // Array to store wins for each team
+static std::pair<int, int> team_wins[MAX_TEAMS] = {}; // Array to store teams and their wins
 
 static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
 	// Create an array to hold pointers to Team objects
@@ -17,12 +18,33 @@ static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
 		Team* current_team = teams[i];
 		int current_wins = m_teams_tree->teamNumOfWins(current_team);
 
-		// Check if wins for the current team have changed
-		if (current_wins != team_wins[current_team->getTeamID()]) {			cout << "Team " << current_team->getTeamID() << ": " << team_wins[current_team->getTeamID()] << " -> " << current_wins << endl;
-			team_wins[current_team->getTeamID()] = current_wins;
+		// Check if the team exists in the team_wins array
+		bool found = false;
+		for (int j = 0; j < MAX_TEAMS; ++j) {
+			if (team_wins[j].first == current_team->getTeamID()) {
+				// Update wins for the team
+				if (team_wins[j].second != current_wins) {
+					cout << "Team " << current_team->getTeamID() << ": " << team_wins[j].second << " -> " << current_wins << endl;
+					team_wins[j].second = current_wins;
+				}
+				found = true;
+				break;
+			}
+		}
+
+		// If the team is not found in the team_wins array, add it
+		if (!found) {
+			for (int j = 0; j < MAX_TEAMS; ++j) {
+				if (team_wins[j].first == 0) { // Found an empty slot
+					team_wins[j].first = current_team->getTeamID();
+					team_wins[j].second = current_wins;
+					break;
+				}
+			}
 		}
 	}
 }
+
 
 
 
@@ -72,6 +94,7 @@ StatusType olympics_t::remove_team(int teamId) {
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 
+
 	// find cell
 	int team_index = m_teams->getIndexOfKey(teamId);
 
@@ -89,6 +112,9 @@ StatusType olympics_t::remove_team(int teamId) {
 	// delete team
 	delete team_to_remove_dup;
 	Team* team_to_remove = team_to_remove_node->getData();
+
+
+
 	m_teams_tree->removeByStrengthAndId(team_to_remove);
 	StatusType return_val = m_teams->getData()[team_index]->remove(team_to_remove);
 	if (return_val == StatusType::SUCCESS) {
@@ -108,13 +134,14 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 	if (playerStrength <= 0 || teamId <= 0) {
 		return StatusType::INVALID_INPUT;
 	}
-
+	
 
 	int team_index = m_teams->getIndexOfKey(teamId);
 	Team* team_dup = new Team(teamId);
 	if (team_dup == nullptr) {
 		return StatusType::ALLOCATION_ERROR;
 	}
+
 
 	BinaryTreeNode<Team>* team_node = m_teams->getData()[team_index]->search(team_dup);
 	if (team_node == nullptr) {

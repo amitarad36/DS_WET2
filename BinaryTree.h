@@ -17,7 +17,7 @@ class BinaryTree {
 private:
 
 	int m_tree_size;
-	BinaryTreeNode<T>* m_root;
+	BinaryTreeNode<T> * m_root;
 	bool first_insertion = true;
 
 public:
@@ -367,6 +367,8 @@ public:
 	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
 		if (root == nullptr)
 			return nullptr;
+		printTree();
+		cout << "\n\n\n\n\n";
 
 		if (data->lessThanByStrengthAndId(root->getData()) > 0) //search left
 			root->setLeft(removeByStrengthAndId_aux(root->getLeft(), data));
@@ -405,22 +407,29 @@ public:
 				// Node with two children
 				BinaryTreeNode<T>* temp = minNode(root->getRight());
 				BinaryTreeNode<T>* temp_right = temp->getRight();
+
+
 				int path_sum = calculatePathExtraWins(temp, root);
 				int B = root->getRight()->getExtraWins();
 				int C = root->getLeft()->getExtraWins();
 				int D = temp->getExtraWins();
 				int E = temp_right == nullptr ? 0 : temp_right->getExtraWins();
+				printTree();
+				cout << "\n\n\n\n\n";
 				root->setData(temp->getData());
 				root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
+				printTree();
+				cout << "\n\n\n\n\n";
 
-
-				root->setExtraWins(path_sum);
+				root->setExtraWins(path_sum + D);
 				if (root->getRight() != nullptr)
-					root->getRight()->setExtraWins(A + B - path_sum);
-				root->getLeft()->setExtraWins(A + C - path_sum);
-				if (temp_right != nullptr)
-					temp_right->setExtraWins(path_sum + E);
-				
+					root->getRight()->setExtraWins(A + B - path_sum - D);
+				root->getLeft()->setExtraWins(A + C - path_sum - D);
+				if (temp_right != nullptr) {
+					temp_right->setExtraWins(path_sum + D + E - calculatePathExtraWins(temp_right, root));
+
+				}
+
 			}
 		}
 
@@ -676,7 +685,8 @@ public:
 		int sum = 0;
 
 		if (root != nullptr) {
-			sum += root->getExtraWins();
+			if(root->getData() != new_node->getData())
+				sum += root->getExtraWins();
 			if (root->getData()->lessThanByStrengthAndId(new_node->getData()) > 0) {
 				return sum + calculatePathExtraWins(new_node, root->getRight());
 			}
