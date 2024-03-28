@@ -5,51 +5,51 @@ C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(40,42): warning C4244: 'return
   (compiling source file 'olympics24a2.cpp')
   C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(40,42):
   the template instantiation context (the oldest one first) is
-  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(4,51):
+  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(30,51):
   	see reference to class template instantiation 'HashObj<Team>' being compiled
   	C:\DS_Projects\DS_WET2\olympicsProject2\HashObj.h(38,6):
   	while compiling class template member function 'int HashObj<Team>::getIndexOfKey(int)'
-  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(14,17):
+  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(43,17):
   		see the first reference to 'HashObj<Team>::getIndexOfKey' in 'olympics_t::add_team'
   
-C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(224,34): warning C4101: 'e': unreferenced local variable
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(229,34): warning C4101: 'e': unreferenced local variable
   (compiling source file 'olympics24a2.cpp')
-  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(224,34):
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(229,34):
   the template instantiation context (the oldest one first) is
-  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(100,26):
+  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(134,26):
   	see reference to class template instantiation 'BinaryTree<Contestant>' being compiled
-  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(208,21):
+  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(213,21):
   	while compiling class template member function 'BinaryTreeNode<Contestant> *BinaryTree<Contestant>::remove_aux(BinaryTreeNode<Contestant> *,T *)'
           with
           [
               T=Contestant
           ]
-  		C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(203,10):
+  		C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(208,10):
   		see the first reference to 'BinaryTree<Contestant>::remove_aux' in 'BinaryTree<Contestant>::remove'
-  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(141,24):
+  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(180,24):
   		see the first reference to 'BinaryTree<Contestant>::remove' in 'olympics_t::remove_newest_player'
   
-C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(235,34): warning C4101: 'e': unreferenced local variable
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(240,34): warning C4101: 'e': unreferenced local variable
   (compiling source file 'olympics24a2.cpp')
   
-C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(376,34): warning C4101: 'e': unreferenced local variable
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(385,34): warning C4101: 'e': unreferenced local variable
   (compiling source file 'olympics24a2.cpp')
-  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(376,34):
+  C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(385,34):
   the template instantiation context (the oldest one first) is
-  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(4,18):
+  	C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(13,2):
   	see reference to class template instantiation 'BinaryTree<Team>' being compiled
-  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(359,21):
+  	C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(367,21):
   	while compiling class template member function 'BinaryTreeNode<Team> *BinaryTree<Team>::removeByStrengthAndId_aux(BinaryTreeNode<Team> *,T *)'
           with
           [
               T=Team
           ]
-  		C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(354,10):
+  		C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(362,10):
   		see the first reference to 'BinaryTree<Team>::removeByStrengthAndId_aux' in 'BinaryTree<Team>::removeByStrengthAndId'
-  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(61,37):
+  		C:\DS_Projects\DS_WET2\olympicsProject2\olympics24a2.cpp(92,37):
   		see the first reference to 'BinaryTree<Team>::removeByStrengthAndId' in 'olympics_t::remove_team'
   
-C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(389,34): warning C4101: 'e': unreferenced local variable
+C:\DS_Projects\DS_WET2\olympicsProject2\BinaryTree.h(398,34): warning C4101: 'e': unreferenced local variable
   (compiling source file 'olympics24a2.cpp')
   
   Generating Code...

@@ -11,11 +11,11 @@
 // 
 
 #include "olympics24a2.h"
-#include <string>
 #include <iostream>
 
 
 using namespace std;
+
 
 //int main() {
 //	// Create an instance of the olympics_t class

@@ -1,5 +1,31 @@
 #include "olympics24a2.h"
 
+#define MAX_TEAMS 1000
+
+static int last_wins = 0;
+static int team_wins[MAX_TEAMS] = { 0 }; // Array to store wins for each team
+
+static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
+	// Create an array to hold pointers to Team objects
+	Team* teams[MAX_TEAMS];
+
+	// Copy elements of the tree into the array using inorder traversal
+	m_teams_tree->inorderToArray(teams);
+
+	// Iterate through the array of teams
+	for (int i = 0; i < m_teams_tree->getTreeSize(); ++i) {
+		Team* current_team = teams[i];
+		int current_wins = m_teams_tree->teamNumOfWins(current_team);
+
+		// Check if wins for the current team have changed
+		if (current_wins != team_wins[current_team->getTeamID()]) {			cout << "Team " << current_team->getTeamID() << ": " << team_wins[current_team->getTeamID()] << " -> " << current_wins << endl;
+			team_wins[current_team->getTeamID()] = current_wins;
+		}
+	}
+}
+
+
+
 olympics_t::olympics_t() : m_num_of_teams(0),
 m_teams_tree(new BinaryTree<Team>()), m_teams(new HashObj<Team>()) {}
 
@@ -9,6 +35,9 @@ olympics_t::~olympics_t()
 }
 
 StatusType olympics_t::add_team(int teamId) {
+
+	assert(m_teams_tree, m_teams);
+
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 	int team_index = m_teams->getIndexOfKey(teamId);
@@ -38,6 +67,8 @@ StatusType olympics_t::add_team(int teamId) {
 }
 
 StatusType olympics_t::remove_team(int teamId) {
+
+	assert(m_teams_tree, m_teams);
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 
@@ -72,9 +103,13 @@ StatusType olympics_t::remove_team(int teamId) {
 }
 
 StatusType olympics_t::add_player(int teamId, int playerStrength) {
+	assert(m_teams_tree, m_teams);
+
 	if (playerStrength <= 0 || teamId <= 0) {
 		return StatusType::INVALID_INPUT;
 	}
+
+
 	int team_index = m_teams->getIndexOfKey(teamId);
 	Team* team_dup = new Team(teamId);
 	if (team_dup == nullptr) {
@@ -92,7 +127,6 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 		return StatusType::ALLOCATION_ERROR;
 		delete team_dup;
 	}
-	int rank = m_teams_tree->getRankByTeam(team);
 	int num_of_wins = m_teams_tree->teamNumOfWins(team);
 	
 	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
@@ -104,19 +138,23 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 	team->getContestantsStack()->push(new_contestant->getStrength(), new_contestant->getTimeStamp());
 	team->setStrength(team->getMeanStrength() * team->getContestants()->getTreeSize());
 	m_teams_tree->insertByStrengthAndId(team);
+	int rank = m_teams_tree->getRankByTeam(team);
 	if (rank > 0 && num_of_wins > 0) {
 		m_teams_tree->addWinToTeams(rank, num_of_wins);
 		if(rank > 1) m_teams_tree->addWinToTeams(rank - 1, -num_of_wins);
 	}
+
 	team->setWasInTeamsTree(true);
 	delete team_dup;
 	return StatusType::SUCCESS;
 }
 
-StatusType olympics_t::remove_newest_player(int teamId) {
+StatusType olympics_t::remove_newest_player(int teamId) {	assert(m_teams_tree, m_teams);
+
 	if (teamId <= 0) {
 		return StatusType::INVALID_INPUT;
 	}
+	
 	int team_index = m_teams->getIndexOfKey(teamId);
 	Team* team_dup = new Team(teamId);
 	if (team_dup == nullptr) {
@@ -132,6 +170,7 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	Team* team = team_node->getData();
 	int num_of_wins = m_teams_tree->teamNumOfWins(team);
 	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
+	
 	int contestant_strength = team->getContestantsStack()->top()->getContestantStrength();
 	int contestant_time_stamp = team->getContestantsStack()->top()->getContestantTimeStamp();
 	Contestant* contestant_to_remove_dup = new Contestant(contestant_strength, contestant_time_stamp);
@@ -152,11 +191,12 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 	delete contestant_to_remove_dup;
 	delete team_dup;
-
 	return return_val;
 }
 
 output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
+	assert(m_teams_tree, m_teams);
+
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
 	}
@@ -203,11 +243,13 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 	else if (team1_strength < team2_strength) {
 		m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2); // add win
 		return output_t<int>(teamId2);
+
 	}
 	else {
 		if (team1->getTeamID() < team2->getTeamID()) {
 			m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1); // add win
 			return output_t<int>(teamId1);
+
 		}
 		else {
 			m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2); // add win
@@ -217,9 +259,12 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 }
 
 output_t<int> olympics_t::num_wins_for_team(int teamId) {
+	assert(m_teams_tree, m_teams);
+
 	if (teamId <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
 	}
+
 	int team_index = m_teams->getIndexOfKey(teamId);
 	Team* team_dup = new Team(teamId);
 	if (team_dup == nullptr) {
@@ -236,6 +281,7 @@ output_t<int> olympics_t::num_wins_for_team(int teamId) {
 }
 
 output_t<int> olympics_t::get_highest_ranked_team() {
+	assert(m_teams_tree, m_teams);
 
 	if (m_num_of_teams == 0) {
 		return output_t<int>(-1);
@@ -247,6 +293,8 @@ output_t<int> olympics_t::get_highest_ranked_team() {
 }
 
 StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
+	assert(m_teams_tree, m_teams);
+
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return StatusType::INVALID_INPUT;
 
