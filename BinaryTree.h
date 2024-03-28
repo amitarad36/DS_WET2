@@ -367,8 +367,7 @@ public:
 	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
 		if (root == nullptr)
 			return nullptr;
-		printTree();
-		cout << "\n\n\n\n\n";
+
 
 		if (data->lessThanByStrengthAndId(root->getData()) > 0) //search left
 			root->setLeft(removeByStrengthAndId_aux(root->getLeft(), data));
@@ -414,12 +413,10 @@ public:
 				int C = root->getLeft()->getExtraWins();
 				int D = temp->getExtraWins();
 				int E = temp_right == nullptr ? 0 : temp_right->getExtraWins();
-				printTree();
-				cout << "\n\n\n\n\n";
+
 				root->setData(temp->getData());
 				root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
-				printTree();
-				cout << "\n\n\n\n\n";
+
 
 				root->setExtraWins(path_sum + D);
 				if (root->getRight() != nullptr)
@@ -429,7 +426,6 @@ public:
 					temp_right->setExtraWins(path_sum + D + E - calculatePathExtraWins(temp_right, root));
 
 				}
-
 			}
 		}
 

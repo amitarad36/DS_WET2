@@ -58,7 +58,7 @@ olympics_t::~olympics_t()
 
 StatusType olympics_t::add_team(int teamId) {
 
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
@@ -90,7 +90,7 @@ StatusType olympics_t::add_team(int teamId) {
 
 StatusType olympics_t::remove_team(int teamId) {
 
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 
@@ -129,7 +129,7 @@ StatusType olympics_t::remove_team(int teamId) {
 }
 
 StatusType olympics_t::add_player(int teamId, int playerStrength) {
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (playerStrength <= 0 || teamId <= 0) {
 		return StatusType::INVALID_INPUT;
@@ -176,7 +176,8 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 	return StatusType::SUCCESS;
 }
 
-StatusType olympics_t::remove_newest_player(int teamId) {	assert(m_teams_tree, m_teams);
+StatusType olympics_t::remove_newest_player(int teamId) {
+	//assert(m_teams_tree, m_teams);
 
 	if (teamId <= 0) {
 		return StatusType::INVALID_INPUT;
@@ -222,7 +223,7 @@ StatusType olympics_t::remove_newest_player(int teamId) {	assert(m_teams_tree, m
 }
 
 output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
@@ -286,7 +287,7 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 }
 
 output_t<int> olympics_t::num_wins_for_team(int teamId) {
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (teamId <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
@@ -308,7 +309,7 @@ output_t<int> olympics_t::num_wins_for_team(int teamId) {
 }
 
 output_t<int> olympics_t::get_highest_ranked_team() {
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (m_num_of_teams == 0) {
 		return output_t<int>(-1);
@@ -320,7 +321,7 @@ output_t<int> olympics_t::get_highest_ranked_team() {
 }
 
 StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
-	assert(m_teams_tree, m_teams);
+	//assert(m_teams_tree, m_teams);
 
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return StatusType::INVALID_INPUT;
