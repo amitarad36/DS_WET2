@@ -4,11 +4,10 @@
 
 #define MAX_TEAMS 1000
 
-static int last_team_won = -1;
 
 static std::pair<int, int> team_wins[MAX_TEAMS] = {}; // Array to store teams and their wins
 
-static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
+static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams, bool tour) {
 	// Create an array to hold pointers to Team objects
 	Team* teams[MAX_TEAMS];
 
@@ -25,10 +24,10 @@ static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
 		for (int j = 0; j < MAX_TEAMS; ++j) {
 			if (team_wins[j].first == current_team->getTeamID()) {
 				// Update wins for the team
-				if (team_wins[j].second != current_wins && last_team_won != current_team->getTeamID()) {
+				if ((team_wins[j].second != current_wins && 604 == current_team->getTeamID()) || (team_wins[j].second != current_wins && tour)) {
 					cout << "Team " << current_team->getTeamID() << ": " << team_wins[j].second << " -> " << current_wins << endl;
-					team_wins[j].second = current_wins;
 				}
+				team_wins[j].second = current_wins;
 				found = true;
 				break;
 			}
@@ -52,12 +51,12 @@ m_teams_tree(new BinaryTree<Team>()), m_teams(new HashObj<Team>()) {}
 
 olympics_t::~olympics_t()
 {
-	// TODO: Your code goes here
+	delete m_teams;
+	m_teams_tree->postorderDelete(false);
 }
 
 StatusType olympics_t::add_team(int teamId) {
 
-	//assert(m_teams_tree, m_teams);
 	
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
@@ -83,13 +82,14 @@ StatusType olympics_t::add_team(int teamId) {
 
 	if (m_teams->resize(true) == StatusType::ALLOCATION_ERROR)
 		return StatusType::ALLOCATION_ERROR;
+
 	m_num_of_teams++;
+	assert(m_teams_tree, m_teams, false);
 	return return_val;
 }
 
 StatusType olympics_t::remove_team(int teamId) {
 
-	//assert(m_teams_tree, m_teams);
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 	
@@ -122,12 +122,13 @@ StatusType olympics_t::remove_team(int teamId) {
 
 	if (m_teams->resize(false) == StatusType::ALLOCATION_ERROR)
 		return StatusType::ALLOCATION_ERROR;
+
 	m_num_of_teams--;
+	assert(m_teams_tree, m_teams, false);
 	return return_val;
 }
 
 StatusType olympics_t::add_player(int teamId, int playerStrength) {
-	//assert(m_teams_tree, m_teams);
 
 	if (playerStrength <= 0 || teamId <= 0) {
 		return StatusType::INVALID_INPUT;
@@ -171,11 +172,11 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 
 	team->setWasInTeamsTree(true);
 	delete team_dup;
+	assert(m_teams_tree, m_teams, false);
 	return StatusType::SUCCESS;
 }
 
 StatusType olympics_t::remove_newest_player(int teamId) {
-	//assert(m_teams_tree, m_teams);
 	
 	if (teamId <= 0) {
 		return StatusType::INVALID_INPUT;
@@ -217,11 +218,12 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 	delete contestant_to_remove_dup;
 	delete team_dup;
+	assert(m_teams_tree, m_teams, false);
+
 	return return_val;
 }
 
 output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
-	//assert(m_teams_tree, m_teams);
 
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
@@ -267,28 +269,31 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 
 	if (team1_strength > team2_strength) {
 		m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
+		assert(m_teams_tree, m_teams, false);
 		return output_t<int>(teamId1);
 	}
 	else if (team1_strength < team2_strength) {
-		m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2); // add win
+		m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2);
+		assert(m_teams_tree, m_teams, false);
 		return output_t<int>(teamId2);
 
 	}
 	else {
 		if (team1->getTeamID() < team2->getTeamID()) {
-			m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1); // add win
+			m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
+			assert(m_teams_tree, m_teams, false);
 			return output_t<int>(teamId1);
 
 		}
 		else {
-			m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2); // add win
+			m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2);
+			assert(m_teams_tree, m_teams, false);
 			return output_t<int>(teamId2);
 		}
 	}
 }
 
 output_t<int> olympics_t::num_wins_for_team(int teamId) {
-	//assert(m_teams_tree, m_teams);
 
 	if (teamId <= 0) {
 		return output_t<int>(StatusType::INVALID_INPUT);
@@ -310,7 +315,6 @@ output_t<int> olympics_t::num_wins_for_team(int teamId) {
 }
 
 output_t<int> olympics_t::get_highest_ranked_team() {
-	//assert(m_teams_tree, m_teams);
 
 	if (m_num_of_teams == 0) {
 		return output_t<int>(-1);
@@ -322,7 +326,6 @@ output_t<int> olympics_t::get_highest_ranked_team() {
 }
 
 StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
-	//assert(m_teams_tree, m_teams);
 
 	if (teamId1 == teamId2 || teamId2 <= 0 || teamId1 <= 0) {
 		return StatusType::INVALID_INPUT;
@@ -405,20 +408,17 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 	delete team2;
 
 
+	assert(m_teams_tree, m_teams, false);
 
 	return StatusType::SUCCESS;
 }
 
 output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 
-	//assert(m_teams_tree, m_teams);
 
 	if (highPower <= 0 || lowPower <= 0 || highPower <= lowPower) { // if the tree is empt?
 		return output_t<int>(StatusType::INVALID_INPUT);
 	}
-
-	//m_teams_tree->printTree();
-
 
 
 	Team* min_team = findMinTeam(m_teams_tree->getRoot(), lowPower);
@@ -433,30 +433,31 @@ output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 
 	if (min_rank == max_rank) {
 		m_teams_tree->addWinToTeamsInRange(min_rank, max_rank);
+		assert(m_teams_tree, m_teams, true);
 		return output_t<int>(max_team->getTeamID());
 	}
 
-	int num_teams_in_round = max_rank - min_rank + 1;
+	int num_teams = max_rank - min_rank + 1;
 	int num_rounds = 0;
-	while (num_teams_in_round > 1) {
-		if (num_teams_in_round % 2 != 0) {
+	while (num_teams > 1) {
+		if (num_teams % 2 != 0) {
 			return output_t<int>(StatusType::FAILURE);
 		}
-		num_teams_in_round /= 2;
+		num_teams /= 2;
 		num_rounds++;
 	}
-
+	int num_teams_in_round = (max_rank - min_rank + 1) / 2;
 	int mid_rank = (max_rank + min_rank) / 2;
 
 	while (num_rounds) {
-		m_teams_tree->addWinToTeamsInRange(mid_rank + 1, mid_rank + num_teams_in_round);
+		m_teams_tree->addWinToTeamsInRange(max_rank - num_teams_in_round + 1, max_rank);
 		num_teams_in_round /= 2;
 		num_rounds--;
 	}
 
+	assert(m_teams_tree, m_teams, true);
 	return output_t<int>(max_team->getTeamID());
 }
-
 
 static Contestant** mergeSortedArrays(Contestant** arr1, int size1, Contestant** arr2, int size2) {
 	Contestant** merged_arr = new Contestant * [size1 + size2];
