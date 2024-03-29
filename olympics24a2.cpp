@@ -4,6 +4,8 @@
 
 #define MAX_TEAMS 1000
 
+static int last_team_won = -1;
+
 static std::pair<int, int> team_wins[MAX_TEAMS] = {}; // Array to store teams and their wins
 
 static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
@@ -23,7 +25,7 @@ static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
 		for (int j = 0; j < MAX_TEAMS; ++j) {
 			if (team_wins[j].first == current_team->getTeamID()) {
 				// Update wins for the team
-				if (team_wins[j].second != current_wins) {
+				if (team_wins[j].second != current_wins && last_team_won != current_team->getTeamID()) {
 					cout << "Team " << current_team->getTeamID() << ": " << team_wins[j].second << " -> " << current_wins << endl;
 					team_wins[j].second = current_wins;
 				}
@@ -56,7 +58,7 @@ olympics_t::~olympics_t()
 StatusType olympics_t::add_team(int teamId) {
 
 	//assert(m_teams_tree, m_teams);
-
+	
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 	int team_index = m_teams->getIndexOfKey(teamId);
@@ -90,8 +92,7 @@ StatusType olympics_t::remove_team(int teamId) {
 	//assert(m_teams_tree, m_teams);
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
-
-
+	
 	// find cell
 	int team_index = m_teams->getIndexOfKey(teamId);
 
@@ -175,7 +176,7 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 
 StatusType olympics_t::remove_newest_player(int teamId) {
 	//assert(m_teams_tree, m_teams);
-
+	
 	if (teamId <= 0) {
 		return StatusType::INVALID_INPUT;
 	}
@@ -261,6 +262,8 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 
 	int rank_team1 = m_teams_tree->getRankByTeam(team1);
 	int rank_team2 = m_teams_tree->getRankByTeam(team2);
+
+	
 
 	if (team1_strength > team2_strength) {
 		m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
@@ -407,34 +410,53 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 }
 
 output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
+
 	//assert(m_teams_tree, m_teams);
 
-
-	if (highPower <= 0 || lowPower <= 0 || highPower <= lowPower) {
+	if (highPower <= 0 || lowPower <= 0 || highPower <= lowPower) { // if the tree is empt?
 		return output_t<int>(StatusType::INVALID_INPUT);
 	}
 
-	// Find the minimal and maximal teams
-	Team* minimal_team = findMinTeam(m_teams_tree->getRoot(), lowPower);
-	Team* maximal_team = findMaxTeam(m_teams_tree->getRoot(), highPower);
+	//m_teams_tree->printTree();
 
-	// Get the ranks of the minimal and maximal teams
-	int min_rank = m_teams_tree->getRankByTeam(minimal_team);
-	int max_rank = m_teams_tree->getRankByTeam(maximal_team);
 
-	// Check if the difference between max and min rank is a power of 2
-	int rank_difference = max_rank - min_rank + 1;
-	while (rank_difference > 1) {
-		if (rank_difference % 2 != 0) {
-			return output_t<int>(StatusType::FAILURE);
-		}
-		rank_difference /= 2;
+
+	Team* min_team = findMinTeam(m_teams_tree->getRoot(), lowPower);
+	Team* max_team = findMaxTeam(m_teams_tree->getRoot(), highPower);
+
+	int min_rank = m_teams_tree->getRankByTeam(min_team);
+	int max_rank = m_teams_tree->getRankByTeam(max_team);
+
+	if (min_rank > max_rank) {
+		return output_t<int>(StatusType::FAILURE);
 	}
 
+	if (min_rank == max_rank) {
+		m_teams_tree->addWinToTeamsInRange(min_rank, max_rank);
+		return output_t<int>(max_team->getTeamID());
+	}
 
+	int num_teams_in_round = max_rank - min_rank + 1;
+	int num_rounds = 0;
+	while (num_teams_in_round > 1) {
+		if (num_teams_in_round % 2 != 0) {
+			return output_t<int>(StatusType::FAILURE);
+		}
+		num_teams_in_round /= 2;
+		num_rounds++;
+	}
 
-	return output_t<int>(StatusType::SUCCESS);
+	int mid_rank = (max_rank + min_rank) / 2;
+
+	while (num_rounds) {
+		m_teams_tree->addWinToTeamsInRange(mid_rank + 1, mid_rank + num_teams_in_round);
+		num_teams_in_round /= 2;
+		num_rounds--;
+	}
+
+	return output_t<int>(max_team->getTeamID());
 }
+
 
 static Contestant** mergeSortedArrays(Contestant** arr1, int size1, Contestant** arr2, int size2) {
 	Contestant** merged_arr = new Contestant * [size1 + size2];
@@ -504,7 +526,7 @@ static Team* findMinTeam_aux(BinaryTreeNode<Team>* root, int x, Team* candidate 
 		return candidate;
 
 	if (root->getData()->getStrength() >= x) {
-		if (candidate == nullptr || root->getData()->lessThanByStrengthAndId(candidate)) {
+		if (candidate == nullptr || root->getData()->lessThanByStrengthAndId(candidate) > 0) {
 			candidate = root->getData();
 		}
 		return findMinTeam_aux(root->getLeft(), x, candidate);
@@ -519,7 +541,7 @@ static Team* findMaxTeam_aux(BinaryTreeNode<Team>* root, int x, Team* candidate 
 		return candidate;
 
 	if (root->getData()->getStrength() <= x) {
-		if (candidate == nullptr || candidate->lessThanByStrengthAndId(root->getData())) {
+		if (candidate == nullptr || candidate->lessThanByStrengthAndId(root->getData()) > 0) {
 			candidate = root->getData();
 		}
 		return findMaxTeam_aux(root->getRight(), x, candidate);

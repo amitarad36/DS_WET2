@@ -367,9 +367,9 @@ public:
 	}
 
 	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
+		
 		if (root == nullptr)
 			return nullptr;
-
 
 		if (data->lessThanByStrengthAndId(root->getData()) > 0) //search left
 			root->setLeft(removeByStrengthAndId_aux(root->getLeft(), data));
@@ -388,6 +388,7 @@ public:
 				catch (const std::bad_alloc& e) {
 					throw;
 				}
+				updateSubtreeMaxRankedTeam(temp);
 				return temp;
 			}
 			else if (root->getRight() == nullptr) {  // only left child
@@ -401,6 +402,8 @@ public:
 				catch (const std::bad_alloc& e) {
 					throw;
 				}
+				
+				updateSubtreeMaxRankedTeam(temp);
 				return temp;
 			}
 			else {
