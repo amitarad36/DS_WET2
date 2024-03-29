@@ -305,7 +305,7 @@ public:
 			root = new_node;
 			root->setSubtreeSize(1);
 			new_node->setExtraWins(-calculatePathExtraWins(new_node, m_root));
-			root->setSubtreeMaxRankedTeam(new_node->getData()->getStrength());
+			root->setSubtreeMaxRankedTeam(new_node->getData()->getStrength() - new_node->getExtraWins());
 			if (first_insertion) {
 				setRoot(root);
 				first_insertion = false;
@@ -323,6 +323,8 @@ public:
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
 
 		updateSubtreeSize(root);
+		updateSubtreeMaxRankedTeam(root->getRight());
+		updateSubtreeMaxRankedTeam(root->getLeft());
 		updateSubtreeMaxRankedTeam(root);
 
 		int bf = getBalanceFactor(root);
@@ -408,14 +410,13 @@ public:
 				BinaryTreeNode<T>* temp_right = temp->getRight();
 
 
+
 				int path_sum = calculatePathExtraWins(temp, root);
 				int B = root->getRight()->getExtraWins();
 				int C = root->getLeft()->getExtraWins();
 				int D = temp->getExtraWins();
 				int E = temp_right == nullptr ? 0 : temp_right->getExtraWins();
 
-				root->setData(temp->getData());
-				root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
 
 
 				root->setExtraWins(path_sum + D);
@@ -424,13 +425,20 @@ public:
 				root->getLeft()->setExtraWins(A + C - path_sum - D);
 				if (temp_right != nullptr) {
 					temp_right->setExtraWins(path_sum + D + E - calculatePathExtraWins(temp_right, root));
-
 				}
+
+				root->setData(temp->getData());
+				root->setRight(removeByStrengthAndId_aux(root->getRight(), temp->getData()));
+
 			}
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
-		updateSubtreeSize(root);
+		updateSubtreeSize(root);	
+		updateSubtreeMaxRankedTeam(root->getRight());
+		updateSubtreeMaxRankedTeam(root->getLeft());
+		updateSubtreeMaxRankedTeam(root);
+
 		int bf = getBalanceFactor(root);
 
 		if (bf > 1 && getBalanceFactor(root->getLeft()) >= 0)
@@ -448,7 +456,6 @@ public:
 			return leftRotation(root);
 		}
 
-		updateSubtreeMaxRankedTeam(root);
 
 		return root;
 	}

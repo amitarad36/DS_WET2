@@ -45,9 +45,6 @@ static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams) {
 	}
 }
 
-
-
-
 olympics_t::olympics_t() : m_num_of_teams(0),
 m_teams_tree(new BinaryTree<Team>()), m_teams(new HashObj<Team>()) {}
 
@@ -261,6 +258,7 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 	int team1_strength = team1->getStrength();
 	int team2_strength = team2->getStrength();
 
+
 	int rank_team1 = m_teams_tree->getRankByTeam(team1);
 	int rank_team2 = m_teams_tree->getRankByTeam(team2);
 
@@ -351,7 +349,7 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 	Team* team1 = team1_node->getData();
 	Team* team2 = team2_node->getData();
 
-
+	int num_of_wins = m_teams_tree->teamNumOfWins(team1);
 	m_teams_tree->removeByStrengthAndId(team1);
 	m_teams_tree->removeByStrengthAndId(team2);
 	m_teams->getData()[team2_index]->remove(team2);
@@ -381,8 +379,12 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 
 	team1->setStrength(team1->getMeanStrength() * team1->getContestants()->getTreeSize());
 	m_teams_tree->insertByStrengthAndId(team1);
+	int rank = m_teams_tree->getRankByTeam(team1);
 	team1->setWasInTeamsTree(true);
-
+	if (rank > 0 && num_of_wins > 0) {
+		m_teams_tree->addWinToTeams(rank, num_of_wins);
+		if (rank > 1) m_teams_tree->addWinToTeams(rank - 1, -num_of_wins);
+	}
 	if (m_teams->resize(false) == StatusType::ALLOCATION_ERROR)
 		return StatusType::ALLOCATION_ERROR;
 
@@ -405,6 +407,7 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 }
 
 output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
+	//assert(m_teams_tree, m_teams);
 
 
 	if (highPower <= 0 || lowPower <= 0 || highPower <= lowPower) {
