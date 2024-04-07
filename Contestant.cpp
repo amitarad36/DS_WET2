@@ -51,7 +51,8 @@ bool Contestant::operator==(const Contestant& c) const {
 	return (getStrength() == c.getStrength());
 }
 
-std::ostream& operator<<(std::ostream& os, const Contestant& obj) {
-	os << obj.getStrength();
+std::ostream& operator<<(std::ostream& os, const Contestant& obj)
+{
+	os << obj.getStrength() << " - " << obj.getTimeStamp();
 	return os;
 }

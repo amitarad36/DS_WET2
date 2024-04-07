@@ -4,7 +4,6 @@
 
 #define MAX_TEAMS 1000
 
-
 static std::pair<int, int> team_wins[MAX_TEAMS] = {}; // Array to store teams and their wins
 
 static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams, bool tour) {
@@ -26,6 +25,8 @@ static void assert(BinaryTree<Team>* m_teams_tree, HashObj<Team>* m_teams, bool 
 				// Update wins for the team
 				if ((team_wins[j].second != current_wins && 604 == current_team->getTeamID()) || (team_wins[j].second != current_wins && tour)) {
 					cout << "Team " << current_team->getTeamID() << ": " << team_wins[j].second << " -> " << current_wins << endl;
+					if (604 == current_team->getTeamID())
+						cout << "-------------------------------------------- " << endl;
 				}
 				team_wins[j].second = current_wins;
 				found = true;
@@ -84,7 +85,7 @@ StatusType olympics_t::add_team(int teamId) {
 		return StatusType::ALLOCATION_ERROR;
 
 	m_num_of_teams++;
-	assert(m_teams_tree, m_teams, false);
+	//assert(m_teams_tree, m_teams, false);
 	return return_val;
 }
 
@@ -93,6 +94,7 @@ StatusType olympics_t::remove_team(int teamId) {
 	if (teamId <= 0)
 		return StatusType::INVALID_INPUT;
 	
+
 	// find cell
 	int team_index = m_teams->getIndexOfKey(teamId);
 
@@ -112,7 +114,6 @@ StatusType olympics_t::remove_team(int teamId) {
 	Team* team_to_remove = team_to_remove_node->getData();
 
 
-
 	m_teams_tree->removeByStrengthAndId(team_to_remove);
 	StatusType return_val = m_teams->getData()[team_index]->remove(team_to_remove);
 	if (return_val == StatusType::SUCCESS) {
@@ -124,7 +125,7 @@ StatusType olympics_t::remove_team(int teamId) {
 		return StatusType::ALLOCATION_ERROR;
 
 	m_num_of_teams--;
-	assert(m_teams_tree, m_teams, false);
+	//assert(m_teams_tree, m_teams, false);
 	return return_val;
 }
 
@@ -153,6 +154,9 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 		return StatusType::ALLOCATION_ERROR;
 		delete team_dup;
 	}
+
+
+
 	int num_of_wins = m_teams_tree->teamNumOfWins(team);
 	
 	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
@@ -172,7 +176,7 @@ StatusType olympics_t::add_player(int teamId, int playerStrength) {
 
 	team->setWasInTeamsTree(true);
 	delete team_dup;
-	assert(m_teams_tree, m_teams, false);
+	//assert(m_teams_tree, m_teams, false);
 	return StatusType::SUCCESS;
 }
 
@@ -195,19 +199,25 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 
 	Team* team = team_node->getData();
+
 	int num_of_wins = m_teams_tree->teamNumOfWins(team);
-	m_teams_tree->removeByStrengthAndId(team); // make sure the num of wins is correct
-	
+
+	m_teams_tree->removeByStrengthAndId(team);
+
 	int contestant_strength = team->getContestantsStack()->top()->getContestantStrength();
+
 	int contestant_time_stamp = team->getContestantsStack()->top()->getContestantTimeStamp();
+
 	Contestant* contestant_to_remove_dup = new Contestant(contestant_strength, contestant_time_stamp);
 	team->getContestantsStack()->pop();
 	BinaryTreeNode<Contestant>* contestant_to_remove_node = team->getContestants()->search(contestant_to_remove_dup);
 	Contestant* contestant = contestant_to_remove_node->getData();
-	StatusType return_val = team->getContestants()->remove(contestant_to_remove_dup);
+	StatusType return_val = team->getContestants()->remove(contestant);
 	if (return_val == StatusType::SUCCESS) {
 		delete contestant;
 	}
+
+
 	team->setStrength(team->getMeanStrength() * team->getContestants()->getTreeSize());
 	m_teams_tree->insertByStrengthAndId(team);
 	int rank = m_teams_tree->getRankByTeam(team);
@@ -218,7 +228,7 @@ StatusType olympics_t::remove_newest_player(int teamId) {
 	}
 	delete contestant_to_remove_dup;
 	delete team_dup;
-	assert(m_teams_tree, m_teams, false);
+	//assert(m_teams_tree, m_teams, false);
 
 	return return_val;
 }
@@ -269,25 +279,25 @@ output_t<int> olympics_t::play_match(int teamId1, int teamId2) {
 
 	if (team1_strength > team2_strength) {
 		m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
-		assert(m_teams_tree, m_teams, false);
+		//assert(m_teams_tree, m_teams, false);
 		return output_t<int>(teamId1);
 	}
 	else if (team1_strength < team2_strength) {
 		m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2);
-		assert(m_teams_tree, m_teams, false);
+		//assert(m_teams_tree, m_teams, false);
 		return output_t<int>(teamId2);
 
 	}
 	else {
 		if (team1->getTeamID() < team2->getTeamID()) {
 			m_teams_tree->addWinToTeamsInRange(rank_team1, rank_team1);
-			assert(m_teams_tree, m_teams, false);
+			//assert(m_teams_tree, m_teams, false);
 			return output_t<int>(teamId1);
 
 		}
 		else {
 			m_teams_tree->addWinToTeamsInRange(rank_team2, rank_team2);
-			assert(m_teams_tree, m_teams, false);
+			//assert(m_teams_tree, m_teams, false);
 			return output_t<int>(teamId2);
 		}
 	}
@@ -355,6 +365,9 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 	Team* team1 = team1_node->getData();
 	Team* team2 = team2_node->getData();
 
+
+
+
 	int num_of_wins = m_teams_tree->teamNumOfWins(team1);
 	m_teams_tree->removeByStrengthAndId(team1);
 	m_teams_tree->removeByStrengthAndId(team2);
@@ -408,7 +421,7 @@ StatusType olympics_t::unite_teams(int teamId1, int teamId2) {
 	delete team2;
 
 
-	assert(m_teams_tree, m_teams, false);
+	//assert(m_teams_tree, m_teams, false);
 
 	return StatusType::SUCCESS;
 }
@@ -420,9 +433,17 @@ output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 		return output_t<int>(StatusType::INVALID_INPUT);
 	}
 
+	
+	if (m_teams_tree->getTreeSize() == 0) {
+		return output_t<int>(StatusType::FAILURE);
+	}
 
 	Team* min_team = findMinTeam(m_teams_tree->getRoot(), lowPower);
 	Team* max_team = findMaxTeam(m_teams_tree->getRoot(), highPower);
+
+	if (min_team == nullptr || max_team == nullptr) {
+		return output_t<int>(StatusType::FAILURE);
+	}
 
 	int min_rank = m_teams_tree->getRankByTeam(min_team);
 	int max_rank = m_teams_tree->getRankByTeam(max_team);
@@ -432,8 +453,7 @@ output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 	}
 
 	if (min_rank == max_rank) {
-		m_teams_tree->addWinToTeamsInRange(min_rank, max_rank);
-		assert(m_teams_tree, m_teams, true);
+		//assert(m_teams_tree, m_teams, true);
 		return output_t<int>(max_team->getTeamID());
 	}
 
@@ -455,7 +475,7 @@ output_t<int> olympics_t::play_tournament(int lowPower, int highPower) {
 		num_rounds--;
 	}
 
-	assert(m_teams_tree, m_teams, true);
+	//assert(m_teams_tree, m_teams, true);
 	return output_t<int>(max_team->getTeamID());
 }
 

@@ -26,9 +26,8 @@ public:
 	virtual ~HashObj() {
 		for (int i = 0; i < m_hash_table_size; i++) {
 			m_data[i]->postorderDelete(true);
-			delete m_data[i];
 		}
-		delete m_data;
+		delete[] m_data;
 	}
 	
 	double getLoadFactor() const {
