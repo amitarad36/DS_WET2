@@ -9,6 +9,7 @@ class Team {
 private:
 
 	int m_id;
+	int m_saved_wins;
 	int m_team_strength;
 	bool was_in_teams_tree;
 	BinaryTree<Contestant> * m_contestants_tree;
@@ -29,6 +30,10 @@ public:
 	void setStrength(int strength);
 
 	int getStrength() const;
+
+	void setSavedWins(int wins);
+
+	int getSavedWins() const;
 
 	void setContestants(BinaryTree<Contestant>* contestants_tree);
 
