@@ -17,7 +17,7 @@ class BinaryTree {
 private:
 
 	int m_tree_size;
-	BinaryTreeNode<T> * m_root;
+	BinaryTreeNode<T>* m_root;
 	bool first_insertion = true;
 
 public:
@@ -367,7 +367,7 @@ public:
 	}
 
 	BinaryTreeNode<T>* removeByStrengthAndId_aux(BinaryTreeNode<T>* root, T* data) {
-		
+
 		if (root == nullptr)
 			return nullptr;
 
@@ -377,7 +377,7 @@ public:
 			root->setRight(removeByStrengthAndId_aux(root->getRight(), data));
 		else { // found the node with the id
 			int A = root->getExtraWins();
-			
+
 			if (root->getLeft() == nullptr) { // no children or only right child 
 				BinaryTreeNode<T>* temp = root->getRight();
 				if (temp != nullptr)
@@ -402,7 +402,7 @@ public:
 				catch (const std::bad_alloc& e) {
 					throw;
 				}
-				
+
 				updateSubtreeMaxRankedTeam(temp);
 				return temp;
 			}
@@ -437,7 +437,7 @@ public:
 		}
 
 		root->setHeight(1 + max(height(root->getLeft()), height(root->getRight())));
-		updateSubtreeSize(root);	
+		updateSubtreeSize(root);
 		updateSubtreeMaxRankedTeam(root->getRight());
 		updateSubtreeMaxRankedTeam(root->getLeft());
 		updateSubtreeMaxRankedTeam(root);
@@ -691,7 +691,7 @@ public:
 		int sum = 0;
 
 		if (root != nullptr) {
-			if(root->getData() != new_node->getData())
+			if (root->getData() != new_node->getData())
 				sum += root->getExtraWins();
 			if (root->getData()->lessThanByStrengthAndId(new_node->getData()) > 0) {
 				return sum + calculatePathExtraWins(new_node, root->getRight());

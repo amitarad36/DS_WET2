@@ -10,7 +10,6 @@ Contestant::Contestant(int strength) : m_strength(strength) {
 
 Contestant::Contestant(int strength, int contestant_time_stamp) : m_strength(strength), m_contestant_time_stamp(contestant_time_stamp) {}
 
-
 Contestant::~Contestant() {}
 
 int Contestant::getStrength() const {
@@ -24,7 +23,6 @@ int Contestant::getTimeStamp() const {
 bool Contestant::getWasInTeamsTree() {
 	return true;
 }
-
 
 void Contestant::setStrength(int strength) {
 	m_strength = strength;
@@ -53,6 +51,6 @@ bool Contestant::operator==(const Contestant& c) const {
 
 std::ostream& operator<<(std::ostream& os, const Contestant& obj)
 {
-	os << obj.getStrength() << " - " << obj.getTimeStamp();
+	os << obj.getStrength();
 	return os;
 }

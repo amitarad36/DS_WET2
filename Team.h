@@ -12,8 +12,8 @@ private:
 	int m_saved_wins;
 	int m_team_strength;
 	bool was_in_teams_tree;
-	BinaryTree<Contestant> * m_contestants_tree;
-	Stack * m_contestants_strength_stack;
+	BinaryTree<Contestant>* m_contestants_tree;
+	Stack* m_contestants_strength_stack;
 
 public:
 
@@ -30,15 +30,13 @@ public:
 	void setStrength(int strength);
 
 	int getStrength() const;
-
 	void setSavedWins(int wins);
-
 	int getSavedWins() const;
 
 	void setContestants(BinaryTree<Contestant>* contestants_tree);
 
 	BinaryTree<Contestant>* getContestants() const;
-	
+
 	int getMeanStrength() const;
 
 	Stack* getContestantsStack() const;

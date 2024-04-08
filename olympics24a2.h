@@ -24,35 +24,35 @@
 
 class olympics_t {
 
-private: //make fields private!!!!!!
+private:
+	int m_num_of_teams;
+	BinaryTree<Team>* m_teams_tree;
+	HashObj<Team>* m_teams;
 public:
-    int m_num_of_teams;
-    BinaryTree<Team> * m_teams_tree;
-    HashObj<Team> * m_teams;
-	
+
 	// <DO-NOT-MODIFY> {
-    olympics_t();
+	olympics_t();
 
 	virtual ~olympics_t();
 
-    StatusType add_team(int teamId);
+	StatusType add_team(int teamId);
 
-    StatusType remove_team(int teamId);
+	StatusType remove_team(int teamId);
 
-    StatusType add_player(int teamId, int playerStrength);
+	StatusType add_player(int teamId, int playerStrength);
 
-    StatusType remove_newest_player(int teamId);
+	StatusType remove_newest_player(int teamId);
 
-    output_t<int> play_match(int teamId1, int teamId2);
+	output_t<int> play_match(int teamId1, int teamId2);
 
-    output_t<int> num_wins_for_team(int teamId);
+	output_t<int> num_wins_for_team(int teamId);
 
-    output_t<int> get_highest_ranked_team();
+	output_t<int> get_highest_ranked_team();
 
-    StatusType unite_teams(int teamId1, int teamId2);
+	StatusType unite_teams(int teamId1, int teamId2);
 
-    output_t<int> play_tournament(int lowPower, int highPower);
-	
+	output_t<int> play_tournament(int lowPower, int highPower);
+
 	// } </DO-NOT-MODIFY>
 };
 

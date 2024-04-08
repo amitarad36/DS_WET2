@@ -19,10 +19,10 @@
 
 // StatusType
 enum struct StatusType {
-	SUCCESS          = 0,
+	SUCCESS = 0,
 	ALLOCATION_ERROR = 1,
-	INVALID_INPUT    = 2,
-	FAILURE          = 3,
+	INVALID_INPUT = 2,
+	FAILURE = 3,
 };
 
 
@@ -38,8 +38,8 @@ private:
 public:
 	output_t() : __status(StatusType::SUCCESS), __ans(T()) { }
 	output_t(StatusType status) : __status(status), __ans(T()) { }
-	output_t(const T &ans) : __status(StatusType::SUCCESS), __ans(ans) { }
-	
+	output_t(const T& ans) : __status(StatusType::SUCCESS), __ans(ans) { }
+
 	StatusType status() { return __status; }
 	T ans() { return __ans; }
 };
